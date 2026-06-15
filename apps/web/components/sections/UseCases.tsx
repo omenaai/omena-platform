@@ -46,9 +46,11 @@ export function UseCases() {
         <div className="mb-12 text-left">
           <Eyebrow>GLOBAL TRANSFERS</Eyebrow>
           <Heading as="h2" size="section" className="font-black text-foreground leading-[1.3] text-balance">
-            Your intelligence layer just got
-            <span className="inline-flex items-center justify-center bg-primary/10 text-primary rounded-full px-5 h-[1.2em] ml-2 font-black align-middle leading-none">
-              global
+            <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span>Your intelligence layer just got</span>
+              <span className="inline-flex items-center justify-center bg-primary/10 text-primary rounded-full px-5 h-[1.05em] font-black leading-none">
+                global
+              </span>
             </span>
           </Heading>
           <Subheading className="mt-1 text-muted-foreground/80">

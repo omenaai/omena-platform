@@ -27,11 +27,13 @@ export function BentoGrid() {
       <div className="mb-12 text-left">
         <Eyebrow>EFFORTLESS FINANCE</Eyebrow>
         <Heading as="h2" size="section" className="font-black text-foreground leading-[1.3] text-balance">
-          Effortless
-          <span className="inline-flex items-center justify-center bg-primary/10 text-primary rounded-full px-5 h-[1.2em] mx-2 font-black align-middle leading-none">
-            global
+          <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <span>Effortless</span>
+            <span className="inline-flex items-center justify-center bg-primary/10 text-primary rounded-full px-5 h-[1.05em] font-black leading-none">
+              global
+            </span>
+            <span>financial management</span>
           </span>
-          financial management
         </Heading>
         <Subheading className="mt-1 text-muted-foreground/80 font-medium leading-relaxed">
           Designed for high performance agentic workflows.

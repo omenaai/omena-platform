@@ -102,45 +102,45 @@ export function HeroSection() {
           </div>
 
           {/* Feature Column 1 */}
-          <div className="p-6 flex items-start gap-3.5 text-left">
-            <div className="shrink-0 mt-0.5">
+          <div className="group p-6 flex items-start gap-3.5 text-left rounded-none transition-colors duration-300 hover:bg-primary/5">
+            <div className="shrink-0 mt-0.5 transition-colors duration-300 group-hover:text-primary">
               <GridIcon1 />
             </div>
             <div>
-              <Link href="#" className="text-[10px] font-black uppercase text-foreground hover:text-primary transition-colors flex items-center gap-1.5 tracking-wide">
-                Real-Time Scoring <ArrowRight className="w-3 h-3 text-muted-foreground" />
+              <Link href="#" className="text-[10px] font-black uppercase text-foreground transition-colors duration-300 flex items-center gap-1.5 tracking-wide group-hover:text-primary">
+                Real-Time Scoring <ArrowRight className="w-3 h-3 text-muted-foreground transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary" />
               </Link>
-              <p className="text-[11px] text-muted-foreground mt-1.5 leading-relaxed font-medium">
+              <p className="text-[11px] text-muted-foreground mt-1.5 leading-relaxed font-medium transition-colors duration-300 group-hover:text-foreground/80">
                 Empower AI agents with wallet and smart contract trust scores.
               </p>
             </div>
           </div>
 
           {/* Feature Column 2 */}
-          <div className="p-6 flex items-start gap-3.5 text-left">
-            <div className="shrink-0 mt-0.5">
+          <div className="group p-6 flex items-start gap-3.5 text-left rounded-none transition-colors duration-300 hover:bg-primary/5">
+            <div className="shrink-0 mt-0.5 transition-colors duration-300 group-hover:text-primary">
               <GridIcon2 />
             </div>
             <div>
-              <Link href="#" className="text-[10px] font-black uppercase text-foreground hover:text-primary transition-colors flex items-center gap-1.5 tracking-wide">
-                Intelligence Layer <ArrowRight className="w-3 h-3 text-muted-foreground" />
+              <Link href="#" className="text-[10px] font-black uppercase text-foreground transition-colors duration-300 flex items-center gap-1.5 tracking-wide group-hover:text-primary">
+                Intelligence Layer <ArrowRight className="w-3 h-3 text-muted-foreground transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary" />
               </Link>
-              <p className="text-[11px] text-muted-foreground mt-1.5 leading-relaxed font-medium">
+              <p className="text-[11px] text-muted-foreground mt-1.5 leading-relaxed font-medium transition-colors duration-300 group-hover:text-foreground/80">
                 Continuous auditing of smart contract vulnerability &amp; pool stability.
               </p>
             </div>
           </div>
 
           {/* Feature Column 3 */}
-          <div className="p-6 flex items-start gap-3.5 text-left">
-            <div className="shrink-0 mt-0.5">
+          <div className="group p-6 flex items-start gap-3.5 text-left rounded-none transition-colors duration-300 hover:bg-primary/5">
+            <div className="shrink-0 mt-0.5 transition-colors duration-300 group-hover:text-primary">
               <GridIcon3 />
             </div>
             <div>
-              <Link href="#" className="text-[10px] font-black uppercase text-foreground hover:text-primary transition-colors flex items-center gap-1.5 tracking-wide">
-                Sub-Second Latency <ArrowRight className="w-3 h-3 text-muted-foreground" />
+              <Link href="#" className="text-[10px] font-black uppercase text-foreground transition-colors duration-300 flex items-center gap-1.5 tracking-wide group-hover:text-primary">
+                Sub-Second Latency <ArrowRight className="w-3 h-3 text-muted-foreground transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary" />
               </Link>
-              <p className="text-[11px] text-muted-foreground mt-1.5 leading-relaxed font-medium">
+              <p className="text-[11px] text-muted-foreground mt-1.5 leading-relaxed font-medium transition-colors duration-300 group-hover:text-foreground/80">
                 Unified low-latency access to transactions &amp; logs across chains.
               </p>
             </div>

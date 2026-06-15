@@ -25,6 +25,7 @@ export interface AnimatedBeamProps {
   startYOffset?: number
   endXOffset?: number
   endYOffset?: number
+  endpointInset?: number
 }
 
 export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
@@ -47,6 +48,7 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
   startYOffset = 0,
   endXOffset = 0,
   endYOffset = 0,
+  endpointInset = 0,
 }) => {
   const id = useId()
   const [pathD, setPathD] = useState("")
@@ -78,14 +80,29 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
         const svgHeight = containerRect.height
         setSvgDimensions({ width: svgWidth, height: svgHeight })
 
-        const startX =
+        let startX =
           rectA.left - containerRect.left + rectA.width / 2 + startXOffset
-        const startY =
+        let startY =
           rectA.top - containerRect.top + rectA.height / 2 + startYOffset
-        const endX =
+        let endX =
           rectB.left - containerRect.left + rectB.width / 2 + endXOffset
-        const endY =
+        let endY =
           rectB.top - containerRect.top + rectB.height / 2 + endYOffset
+
+        if (endpointInset > 0) {
+          const dx = endX - startX
+          const dy = endY - startY
+          const distance = Math.hypot(dx, dy)
+
+          if (distance > endpointInset * 2) {
+            const insetX = (dx / distance) * endpointInset
+            const insetY = (dy / distance) * endpointInset
+            startX += insetX
+            startY += insetY
+            endX -= insetX
+            endY -= insetY
+          }
+        }
 
         const controlY = startY - curvature
         const d = `M ${startX},${startY} Q ${
@@ -121,6 +138,7 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
     startYOffset,
     endXOffset,
     endYOffset,
+    endpointInset,
   ])
 
   return (
@@ -130,7 +148,7 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
       height={svgDimensions.height}
       xmlns="http://www.w3.org/2000/svg"
       className={cn(
-        "pointer-events-none absolute top-0 left-0 transform-gpu stroke-2",
+        "pointer-events-none absolute top-0 left-0 z-0 transform-gpu stroke-2",
         className
       )}
       viewBox={`0 0 ${svgDimensions.width} ${svgDimensions.height}`}

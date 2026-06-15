@@ -41,9 +41,11 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
       <div className="mb-10 max-w-2xl text-left">
         <Eyebrow>INTERACTIVE</Eyebrow>
         <Heading as="h2" size="section" className="font-black text-foreground leading-[1.3] text-balance">
-          Experience the
-          <span className="inline-flex items-center justify-center bg-primary/10 text-primary rounded-full px-5 h-[1.2em] ml-2 font-black align-middle leading-none">
-            intelligence layer.
+          <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <span>Experience the</span>
+            <span className="inline-flex items-center justify-center bg-primary/10 text-primary rounded-full px-5 h-[1.05em] font-black leading-none">
+              intelligence layer.
+            </span>
           </span>
         </Heading>
         <Subheading className="mt-2">
@@ -52,7 +54,7 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
       </div>
 
       {/* Unified Minimalist Light Console Box */}
-      <div className="relative w-full rounded-3xl bg-card shadow-ambient p-6 md:p-8 flex flex-col gap-6 overflow-hidden">
+      <div className="relative w-full rounded-none bg-transparent p-0 flex flex-col gap-6 overflow-hidden md:rounded-3xl md:bg-card md:p-8 md:shadow-ambient">
         {/* Console Header Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 w-full relative z-10">
           {/* Window controls */}
@@ -210,7 +212,7 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
           </div>
 
           {/* Right Side: Tab Previews inside a gorgeous minimalist frame (8 cols) */}
-          <div className="lg:col-span-8 bg-muted/10 rounded-2xl p-5 md:p-6 relative overflow-hidden shadow-inner min-h-[440px] flex flex-col justify-between">
+          <div className="lg:col-span-8 bg-transparent p-0 relative overflow-hidden min-h-0 flex flex-col justify-between md:min-h-[440px] md:rounded-2xl md:bg-muted/10 md:p-6 md:shadow-inner">
             {activeTab === "chat" && (
               <div className="space-y-4 text-left animate-in fade-in duration-300 flex-grow flex flex-col justify-between">
                 <div className="flex items-center justify-between pb-3 mb-2">
@@ -372,7 +374,7 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
                 </div>
 
                 {/* Animated Beam network visual */}
-                <div className="bg-muted/10 rounded-2xl overflow-hidden p-4 flex-grow flex items-center justify-center">
+                <div className="overflow-hidden p-0 pt-8 flex-grow flex items-center justify-center md:rounded-2xl md:bg-muted/10 md:p-4">
                   <AnimatedBeam />
                 </div>
               </div>

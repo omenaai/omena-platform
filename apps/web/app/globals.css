@@ -155,6 +155,8 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: var(--primary) var(--muted);
+  scrollbar-width: thin;
 }
 
 body {
@@ -163,6 +165,24 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-body), system-ui, sans-serif;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--primary) 75%, var(--foreground));
+  border-radius: var(--radius-full);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
 
 h1, h2, h3, h4, h5, h6 {

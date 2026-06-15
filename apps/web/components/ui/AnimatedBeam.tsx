@@ -20,20 +20,20 @@ export function AnimatedBeam() {
   return (
     <div 
       ref={containerRef}
-      className="relative flex w-full max-w-[600px] mx-auto aspect-[16/11] bg-card rounded-3xl p-6 md:p-8 overflow-hidden items-center justify-between shadow-sm"
+      className="relative isolate flex w-full max-w-none mx-auto aspect-[4/3] bg-transparent p-0 overflow-hidden items-center justify-between pt-4 md:max-w-[600px] md:aspect-[16/11] md:rounded-3xl md:bg-card md:p-8 md:shadow-sm"
     >
       {/* Left Column (Inputs) */}
-      <div className="flex flex-col justify-between h-full z-10 w-[35%] py-4">
+      <div className="relative z-10 flex flex-col justify-between h-full w-[38%] py-2 md:w-[35%] md:py-4">
         {/* Ledger Node */}
         <div 
           ref={ledgerRef}
-          className="flex items-center gap-3 bg-card shadow-sm p-2.5 rounded-2xl w-full group transition-colors"
+          className="flex items-center gap-2 bg-card shadow-sm p-2 rounded-xl w-full group transition-colors md:gap-3 md:p-2.5 md:rounded-2xl"
         >
-          <div className="p-1.5 rounded-xl bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-8 h-8 shrink-0">
-            <Database className="w-4 h-4" />
+          <div className="p-1.5 rounded-lg bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-7 h-7 shrink-0 md:w-8 md:h-8 md:rounded-xl">
+            <Database className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </div>
           <div className="text-left min-w-0">
-            <p className="text-[10px] font-black uppercase text-zinc-800 leading-none tracking-wide">Ledger</p>
+            <p className="text-[9px] font-black uppercase text-foreground leading-none tracking-wide md:text-[10px]">Ledger</p>
             <p className="text-[8px] text-zinc-400 mt-1 leading-none font-medium truncate">Transactions</p>
           </div>
         </div>
@@ -41,13 +41,13 @@ export function AnimatedBeam() {
         {/* DEX Pools Node */}
         <div 
           ref={poolsRef}
-          className="flex items-center gap-3 bg-card shadow-sm p-2.5 rounded-2xl w-full group transition-colors"
+          className="flex items-center gap-2 bg-card shadow-sm p-2 rounded-xl w-full group transition-colors md:gap-3 md:p-2.5 md:rounded-2xl"
         >
-          <div className="p-1.5 rounded-xl bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-8 h-8 shrink-0">
-            <Layers className="w-4 h-4" />
+          <div className="p-1.5 rounded-lg bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-7 h-7 shrink-0 md:w-8 md:h-8 md:rounded-xl">
+            <Layers className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </div>
           <div className="text-left min-w-0">
-            <p className="text-[10px] font-black uppercase text-zinc-800 leading-none tracking-wide">DEX Pools</p>
+            <p className="text-[9px] font-black uppercase text-foreground leading-none tracking-wide md:text-[10px]">DEX Pools</p>
             <p className="text-[8px] text-zinc-400 mt-1 leading-none font-medium truncate">Liquidity</p>
           </div>
         </div>
@@ -55,23 +55,23 @@ export function AnimatedBeam() {
         {/* Wallets Node */}
         <div 
           ref={walletsRef}
-          className="flex items-center gap-3 bg-card shadow-sm p-2.5 rounded-2xl w-full group transition-colors"
+          className="flex items-center gap-2 bg-card shadow-sm p-2 rounded-xl w-full group transition-colors md:gap-3 md:p-2.5 md:rounded-2xl"
         >
-          <div className="p-1.5 rounded-xl bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-8 h-8 shrink-0">
-            <Wallet className="w-4 h-4" />
+          <div className="p-1.5 rounded-lg bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-7 h-7 shrink-0 md:w-8 md:h-8 md:rounded-xl">
+            <Wallet className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </div>
           <div className="text-left min-w-0">
-            <p className="text-[10px] font-black uppercase text-zinc-800 leading-none tracking-wide">Wallets</p>
+            <p className="text-[9px] font-black uppercase text-foreground leading-none tracking-wide md:text-[10px]">Wallets</p>
             <p className="text-[8px] text-zinc-400 mt-1 leading-none font-medium truncate">Profiles</p>
           </div>
         </div>
       </div>
 
       {/* Center Column (Omena Core) */}
-      <div className="flex items-center justify-center z-10 w-[20%]">
+      <div className="relative z-10 flex items-center justify-center w-[18%] md:w-[20%]">
         <div ref={centerRef} className="relative group cursor-pointer">
           <div className="absolute inset-0 bg-primary/15 rounded-full blur-xl animate-pulse group-hover:bg-primary/25" />
-          <div className="relative flex items-center justify-center w-14 h-14 bg-primary text-primary-foreground rounded-2xl shadow-glow transform transition-transform group-hover:scale-105 duration-300">
+          <div className="relative flex items-center justify-center w-12 h-12 bg-primary text-primary-foreground rounded-2xl shadow-glow transform transition-transform group-hover:scale-105 duration-300 md:w-14 md:h-14">
             <img 
               src="/logo.png" 
               alt="Omena Logo" 
@@ -82,46 +82,46 @@ export function AnimatedBeam() {
       </div>
 
       {/* Right Column (Outputs) */}
-      <div className="flex flex-col justify-between h-full z-10 w-[35%] py-4">
+      <div className="relative z-10 flex flex-col justify-between h-full w-[38%] py-2 md:w-[35%] md:py-4">
         {/* Trading Node */}
         <div 
           ref={tradingRef}
-          className="flex items-center justify-between gap-3 bg-card shadow-sm p-2.5 rounded-2xl w-full group transition-colors"
+          className="flex items-center justify-between gap-2 bg-card shadow-sm p-2 rounded-xl w-full group transition-colors md:gap-3 md:p-2.5 md:rounded-2xl"
         >
           <div className="text-left min-w-0 pl-1">
-            <p className="text-[10px] font-black uppercase text-zinc-800 leading-none tracking-wide">Trading</p>
+            <p className="text-[9px] font-black uppercase text-foreground leading-none tracking-wide md:text-[10px]">Trading</p>
             <p className="text-[8px] text-zinc-400 mt-1 leading-none font-medium truncate">Automated Bots</p>
           </div>
-          <div className="p-1.5 rounded-xl bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-8 h-8 shrink-0">
-            <Bot className="w-4 h-4" />
+          <div className="p-1.5 rounded-lg bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-7 h-7 shrink-0 md:w-8 md:h-8 md:rounded-xl">
+            <Bot className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </div>
         </div>
 
         {/* Risk Alerts Node */}
         <div 
           ref={alertsRef}
-          className="flex items-center justify-between gap-3 bg-card shadow-sm p-2.5 rounded-2xl w-full group transition-colors"
+          className="flex items-center justify-between gap-2 bg-card shadow-sm p-2 rounded-xl w-full group transition-colors md:gap-3 md:p-2.5 md:rounded-2xl"
         >
           <div className="text-left min-w-0 pl-1">
-            <p className="text-[10px] font-black uppercase text-zinc-800 leading-none tracking-wide">Risk Alerts</p>
+            <p className="text-[9px] font-black uppercase text-foreground leading-none tracking-wide md:text-[10px]">Risk Alerts</p>
             <p className="text-[8px] text-zinc-400 mt-1 leading-none font-medium truncate">Webhooks</p>
           </div>
-          <div className="p-1.5 rounded-xl bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-8 h-8 shrink-0">
-            <ShieldAlert className="w-4 h-4" />
+          <div className="p-1.5 rounded-lg bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-7 h-7 shrink-0 md:w-8 md:h-8 md:rounded-xl">
+            <ShieldAlert className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </div>
         </div>
 
         {/* Dev API Node */}
         <div 
           ref={apiRef}
-          className="flex items-center justify-between gap-3 bg-card shadow-sm p-2.5 rounded-2xl w-full group transition-colors"
+          className="flex items-center justify-between gap-2 bg-card shadow-sm p-2 rounded-xl w-full group transition-colors md:gap-3 md:p-2.5 md:rounded-2xl"
         >
           <div className="text-left min-w-0 pl-1">
-            <p className="text-[10px] font-black uppercase text-zinc-800 leading-none tracking-wide">Dev API</p>
+            <p className="text-[9px] font-black uppercase text-foreground leading-none tracking-wide md:text-[10px]">Dev API</p>
             <p className="text-[8px] text-zinc-400 mt-1 leading-none font-medium truncate">REST &amp; WS</p>
           </div>
-          <div className="p-1.5 rounded-xl bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-8 h-8 shrink-0">
-            <Terminal className="w-4 h-4" />
+          <div className="p-1.5 rounded-lg bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all flex items-center justify-center w-7 h-7 shrink-0 md:w-8 md:h-8 md:rounded-xl">
+            <Terminal className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </div>
         </div>
       </div>
@@ -134,7 +134,8 @@ export function AnimatedBeam() {
         gradientStartColor="var(--primary)"
         gradientStopColor="var(--inverse-primary)"
         pathColor="rgba(37, 99, 235, 0.08)"
-        pathWidth={2}
+        pathWidth={1.5}
+        endpointInset={42}
         duration={4}
       />
       <MagicBeam
@@ -144,7 +145,8 @@ export function AnimatedBeam() {
         gradientStartColor="var(--primary)"
         gradientStopColor="var(--inverse-primary)"
         pathColor="rgba(37, 99, 235, 0.08)"
-        pathWidth={2}
+        pathWidth={1.5}
+        endpointInset={42}
         duration={4}
         delay={1.2}
       />
@@ -155,7 +157,8 @@ export function AnimatedBeam() {
         gradientStartColor="var(--primary)"
         gradientStopColor="var(--inverse-primary)"
         pathColor="rgba(37, 99, 235, 0.08)"
-        pathWidth={2}
+        pathWidth={1.5}
+        endpointInset={42}
         duration={4}
         delay={2.4}
       />
@@ -166,7 +169,8 @@ export function AnimatedBeam() {
         gradientStartColor="var(--primary)"
         gradientStopColor="var(--inverse-primary)"
         pathColor="rgba(37, 99, 235, 0.08)"
-        pathWidth={2}
+        pathWidth={1.5}
+        endpointInset={42}
         duration={4}
         delay={0.6}
       />
@@ -177,7 +181,8 @@ export function AnimatedBeam() {
         gradientStartColor="var(--primary)"
         gradientStopColor="var(--inverse-primary)"
         pathColor="rgba(37, 99, 235, 0.08)"
-        pathWidth={2}
+        pathWidth={1.5}
+        endpointInset={42}
         duration={4}
         delay={1.8}
       />
@@ -188,7 +193,8 @@ export function AnimatedBeam() {
         gradientStartColor="var(--primary)"
         gradientStopColor="var(--inverse-primary)"
         pathColor="rgba(37, 99, 235, 0.08)"
-        pathWidth={2}
+        pathWidth={1.5}
+        endpointInset={42}
         duration={4}
         delay={3}
       />
