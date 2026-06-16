@@ -31,7 +31,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 flex w-full flex-col bg-background/95 shadow-sm backdrop-blur-md">
+    <header className="sticky top-0 z-50 flex w-full flex-col bg-background/95 backdrop-blur-md">
       <div className="mx-auto grid h-16 w-full max-w-[1200px] grid-cols-[auto_1fr_auto] items-center gap-6 px-6">
         <div className="flex items-center">
           <Link className="flex shrink-0 items-center" href="/" aria-label="OMENA home">
@@ -63,7 +63,7 @@ export function Navbar() {
             href="https://github.com"
             target="_blank"
             rel="noreferrer"
-            className="flex shrink-0 items-center gap-1.5 rounded-full bg-background px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-foreground ring-1 ring-foreground/20 transition-colors hover:bg-foreground hover:text-background hover:ring-foreground"
+            className="flex shrink-0 items-center gap-1.5 rounded-full bg-muted/60 px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-foreground transition-colors hover:bg-foreground hover:text-background"
           >
             <GithubIcon className="h-3.5 w-3.5" />
             <span>STAR</span>
@@ -71,7 +71,7 @@ export function Navbar() {
 
           <Link
             href="#"
-            className="rounded-full bg-background px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-foreground ring-1 ring-foreground/20 transition-colors hover:bg-muted hover:ring-foreground/35"
+            className="rounded-full bg-muted/60 px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-foreground transition-colors hover:bg-muted"
           >
             SIGN IN
           </Link>
