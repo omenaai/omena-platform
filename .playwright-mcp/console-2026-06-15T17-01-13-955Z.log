@@ -62,3 +62,7 @@ Incoming: %s useEffect [[object Object], [object Object], [object Object], 0, 0,
 [  258145ms] [LOG] [Fast Refresh] done in 224ms @ http://localhost:3000/_next/static/chunks/0hw9_next_dist_0k8k8eg._.js:2477
 [  370988ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0hw9_next_dist_0k8k8eg._.js:2477
 [  371569ms] [LOG] [Fast Refresh] done in 684ms @ http://localhost:3000/_next/static/chunks/0hw9_next_dist_0k8k8eg._.js:2477
+[ 1470631ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0hw9_next_dist_0k8k8eg._.js:2477
+[ 1471273ms] [LOG] [Fast Refresh] done in 743ms @ http://localhost:3000/_next/static/chunks/0hw9_next_dist_0k8k8eg._.js:2477
+[ 1476583ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/0hw9_next_dist_0k8k8eg._.js:2477
+[ 1476613ms] [LOG] [Fast Refresh] done in 134ms @ http://localhost:3000/_next/static/chunks/0hw9_next_dist_0k8k8eg._.js:2477

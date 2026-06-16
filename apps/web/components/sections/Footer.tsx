@@ -1,30 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Globe, ChevronDown, Mail, Phone, MapPin } from "lucide-react";
+import { Globe, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-
-// Inline Custom SVGs for Social Icons to ensure cross-version compatibility
-const LinkedinIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-  </svg>
-);
-
-const InstagramIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01" />
-  </svg>
-);
-
-const FacebookIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
-  </svg>
-);
 
 const TwitterIcon = () => (
   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -95,26 +75,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Contact */}
-          <div className="space-y-3.5">
-            <h4 className="text-[10px] font-black uppercase tracking-wider text-foreground">
-              Contact
-            </h4>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-2.5 text-xs text-muted-foreground font-semibold">
-                <Mail className="w-4 h-4 text-muted-foreground/60 shrink-0" />
-                <Link href="mailto:info@omena.ai" className="hover:text-primary transition-colors">info@omena.ai</Link>
-              </li>
-              <li className="flex items-center gap-2.5 text-xs text-muted-foreground font-semibold">
-                <Phone className="w-4 h-4 text-muted-foreground/60 shrink-0" />
-                <span className="text-muted-foreground">+351 123 456 789</span>
-              </li>
-              <li className="flex items-center gap-2.5 text-xs text-muted-foreground font-semibold">
-                <MapPin className="w-4 h-4 text-muted-foreground/60 shrink-0" />
-                <span className="text-muted-foreground">San Francisco, California</span>
-              </li>
-            </ul>
-          </div>
+          
 
           {/* Column 4: Language & Socials */}
           <div className="flex flex-col gap-5 justify-between">
@@ -153,9 +114,6 @@ export function Footer() {
             {/* Social Icons */}
             <div className="flex items-center gap-2.5">
               {[
-                { icon: <LinkedinIcon />, href: "#" },
-                { icon: <InstagramIcon />, href: "#" },
-                { icon: <FacebookIcon />, href: "#" },
                 { icon: <TwitterIcon />, href: "#" },
                 { icon: <GithubIcon />, href: "#" },
               ].map((soc, idx) => (
