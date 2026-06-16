@@ -6,62 +6,54 @@ import { Bot, Radio, Database, Link } from "lucide-react";
 export function IsometricStack() {
   return (
     <>
-      {/* Agent Layer */}
-      <div className="absolute w-64 h-64 bg-card rounded-xl border-none isometric-layer layer-1 flex flex-col items-center justify-center group cursor-pointer shadow-ambient">
-        <Bot className="text-foreground w-8 h-8 mb-2" />
-        <h3 className="font-bold text-sm text-foreground">Agent Layer</h3>
-        <p className="font-label-xs text-[10px] text-muted-foreground uppercase tracking-widest mt-1">
-          Agents &amp; Applications
+      <div className="absolute flex h-64 w-64 cursor-pointer flex-col items-center justify-center rounded-xl border-none bg-card shadow-ambient isometric-layer layer-1 group">
+        <Bot className="mb-2 h-8 w-8 text-foreground" />
+        <h3 className="text-sm font-bold uppercase text-foreground">AGENT LAYER</h3>
+        <p className="font-label-xs mt-1 text-[10px] uppercase tracking-widest text-muted-foreground">
+          AI Agents &amp; Applications
         </p>
-        <div className="layer-side bg-muted border-none rounded-b-xl"></div>
-        <div className="layer-side-right bg-muted/80 border-none rounded-r-xl"></div>
-        {/* Tooltip */}
-        <div className="absolute -top-24 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-popover text-popover-foreground px-4 py-2.5 rounded-lg font-label-xs text-xs pointer-events-none w-56 text-center shadow-xl z-50 transform group-hover:-translate-y-2 border-none">
+        <div className="layer-side rounded-b-xl border-none bg-muted" />
+        <div className="layer-side-right rounded-r-xl border-none bg-muted/80" />
+        <div className="pointer-events-none absolute -top-24 z-50 w-56 rounded-lg border-none bg-popover px-4 py-2.5 text-center text-xs text-popover-foreground opacity-0 shadow-xl transition-all duration-300 group-hover:-translate-y-2 group-hover:opacity-100">
           Autonomous Execution - Powering the next generation of AI agents and applications.
         </div>
       </div>
 
-      {/* Intelligence Layer */}
-      <div className="absolute w-64 h-64 bg-primary rounded-xl border-none isometric-layer layer-2 flex flex-col items-center justify-center group cursor-pointer shadow-ambient">
-        <Radio className="text-primary-foreground w-8 h-8 mb-2" />
-        <h3 className="font-bold text-sm text-primary-foreground">Intelligence Layer</h3>
-        <p className="font-label-xs text-[10px] text-primary-foreground/80 uppercase tracking-widest mt-1">
+      <div className="absolute flex h-64 w-64 cursor-pointer flex-col items-center justify-center rounded-xl border-none bg-primary shadow-ambient isometric-layer layer-2 group">
+        <Radio className="mb-2 h-8 w-8 text-primary-foreground" />
+        <h3 className="text-center text-sm font-bold uppercase text-primary-foreground">OMENA INTELLIGENCE LAYER</h3>
+        <p className="font-label-xs mt-1 text-[10px] uppercase tracking-widest text-primary-foreground/80">
           Analysis • Signals • Insights
         </p>
-        <div className="layer-side bg-primary/95 border-none rounded-b-xl"></div>
-        <div className="layer-side-right bg-primary/90 border-none rounded-r-xl"></div>
-        {/* Tooltip */}
-        <div className="absolute -top-24 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-popover text-popover-foreground px-4 py-2.5 rounded-lg font-label-xs text-xs pointer-events-none w-56 text-center shadow-xl z-50 transform group-hover:-translate-y-2 border-none">
+        <div className="layer-side rounded-b-xl border-none bg-primary/95" />
+        <div className="layer-side-right rounded-r-xl border-none bg-primary/90" />
+        <div className="pointer-events-none absolute -top-24 z-50 w-56 rounded-lg border-none bg-popover px-4 py-2.5 text-center text-xs text-popover-foreground opacity-0 shadow-xl transition-all duration-300 group-hover:-translate-y-2 group-hover:opacity-100">
           Signal Extraction - Transforms raw onchain data into risk-aware signals and insights.
         </div>
       </div>
 
-      {/* Onchain Data Layer */}
-      <div className="absolute w-64 h-64 bg-card rounded-xl border-none isometric-layer layer-3 flex flex-col items-center justify-center group cursor-pointer shadow-ambient">
-        <Database className="text-muted-foreground w-8 h-8 mb-2" />
-        <h3 className="font-bold text-sm text-foreground">Data Layer</h3>
-        <p className="font-label-xs text-[10px] text-muted-foreground uppercase tracking-widest mt-1">
-          Wallets • Transactions
+      <div className="absolute flex h-64 w-64 cursor-pointer flex-col items-center justify-center rounded-xl border-none bg-card shadow-ambient isometric-layer layer-3 group">
+        <Database className="mb-2 h-8 w-8 text-muted-foreground" />
+        <h3 className="text-sm font-bold uppercase text-foreground">ONCHAIN DATA LAYER</h3>
+        <p className="font-label-xs mt-1 text-[10px] uppercase tracking-widest text-muted-foreground">
+          Wallets • Transactions • Liquidity
         </p>
-        <div className="layer-side bg-muted border-none rounded-b-xl"></div>
-        <div className="layer-side-right bg-muted/80 border-none rounded-r-xl"></div>
-        {/* Tooltip */}
-        <div className="absolute -top-24 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-popover text-popover-foreground px-4 py-2.5 rounded-lg font-label-xs text-xs pointer-events-none w-56 text-center shadow-xl z-50 transform group-hover:-translate-y-2 border-none">
+        <div className="layer-side rounded-b-xl border-none bg-muted" />
+        <div className="layer-side-right rounded-r-xl border-none bg-muted/80" />
+        <div className="pointer-events-none absolute -top-24 z-50 w-56 rounded-lg border-none bg-popover px-4 py-2.5 text-center text-xs text-popover-foreground opacity-0 shadow-xl transition-all duration-300 group-hover:-translate-y-2 group-hover:opacity-100">
           Data Indexing - Unified access to wallets, transactions, and liquidity across chains.
         </div>
       </div>
 
-      {/* Blockchain Networks */}
-      <div className="absolute w-64 h-64 bg-zinc-950 rounded-xl border-none isometric-layer layer-4 flex flex-col items-center justify-center group cursor-pointer shadow-ambient">
-        <Link className="text-zinc-400 w-8 h-8 mb-2" />
-        <h3 className="font-bold text-sm text-zinc-100">Networks</h3>
-        <p className="font-label-xs text-[10px] text-zinc-500 uppercase tracking-widest mt-1">
-          Solana &amp; Multi Chain
+      <div className="absolute flex h-64 w-64 cursor-pointer flex-col items-center justify-center rounded-xl border-none bg-zinc-950 shadow-ambient isometric-layer layer-4 group">
+        <Link className="mb-2 h-8 w-8 text-zinc-400" />
+        <h3 className="text-sm font-bold uppercase text-zinc-100">BLOCKCHAIN NETWORKS</h3>
+        <p className="font-label-xs mt-1 text-[10px] uppercase tracking-widest text-zinc-500">
+          Solana &amp; Multi-Chain
         </p>
-        <div className="layer-side bg-black border-none rounded-b-xl"></div>
-        <div className="layer-side-right bg-zinc-900 border-none rounded-r-xl"></div>
-        {/* Tooltip */}
-        <div className="absolute -top-24 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-popover text-popover-foreground px-4 py-2.5 rounded-lg font-label-xs text-xs pointer-events-none w-56 text-center shadow-xl z-50 transform group-hover:-translate-y-2 border-none">
+        <div className="layer-side rounded-b-xl border-none bg-black" />
+        <div className="layer-side-right rounded-r-xl border-none bg-zinc-900" />
+        <div className="pointer-events-none absolute -top-24 z-50 w-56 rounded-lg border-none bg-popover px-4 py-2.5 text-center text-xs text-popover-foreground opacity-0 shadow-xl transition-all duration-300 group-hover:-translate-y-2 group-hover:opacity-100">
           Network Connectivity - Low-latency access to Solana and multi-chain environments.
         </div>
       </div>
