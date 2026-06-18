@@ -1,0 +1,162 @@
+import { DocShell } from "@/components/docs/DocShell";
+
+export const metadata = {
+  title: "OMENA Technical Documentation v0.1",
+  description: "Architecture, intelligence engines, API overview, FAQ, and roadmap for OMENA.",
+};
+
+export default function Layout({ children }) {
+  return (
+    <DocShell
+      title="OMENA Technical Documentation v0.1"
+      description="Architecture, intelligence engines, API overview, FAQ, and roadmap for OMENA."
+      links={[
+        { href: "/docs", label: "Technical Docs" },
+        { href: "/litepaper", label: "Litepaper" },
+        { href: "/roadmap", label: "Roadmap" },
+      ]}
+      sections={[
+        { href: "#architecture", label: "Architecture" },
+        { href: "#risk-intelligence", label: "Risk Intelligence" },
+        { href: "#behavior-intelligence", label: "Behavior Intelligence" },
+        { href: "#signal-intelligence", label: "Signal Intelligence" },
+        { href: "#context-intelligence", label: "Context Intelligence" },
+        { href: "#api-overview", label: "API Overview" },
+        { href: "#faq", label: "FAQ" },
+        { href: "#roadmap", label: "Roadmap" },
+      ]}
+    >
+      {children}
+    </DocShell>
+  );
+}
+
+<span id="architecture" />
+
+## Chapter 3: Architecture
+
+### Layer 1 — Blockchain Networks
+
+- Solana
+- Multi-chain environments
+
+### Layer 2 — Onchain Data Layer
+
+- Mempool parsers
+- RPC node clusters
+- State indexers
+- Raw block ingestion
+
+### Layer 3 — OMENA Intelligence Layer
+
+- Risk Engine
+- Behavior Engine
+- Signal Engine
+- Context Engine
+
+### Layer 4 — Agent Layer
+
+- Autonomous agents
+- Protocol bots
+- Developer systems
+- REST APIs / WebSockets
+
+<span id="risk-intelligence" />
+
+## Chapter 4: Risk Intelligence
+
+### Core Capabilities
+
+- Dynamic contract auditing
+- Counterparty scoring
+- Liquidity drain probability
+
+### Output
+
+`Risk Score ∈ [0.0, 1.0]`
+
+<span id="behavior-intelligence" />
+
+## Chapter 5: Behavior Intelligence
+
+### Core Capabilities
+
+- Wallet clustering
+- Intent classification
+- MEV extraction profiling
+
+<span id="signal-intelligence" />
+
+## Chapter 6: Signal Intelligence
+
+### Core Capabilities
+
+- Cross-chain flow telemetry
+- Anomalous volume metrics
+- Slippage & depth estimators
+
+<span id="context-intelligence" />
+
+## Chapter 7: Context Intelligence
+
+### Core Capabilities
+
+- Cross-modal data fusion
+- Narrative mapping
+- Heuristic context matching
+
+<span id="api-overview" />
+
+## Chapter 8: API Overview
+
+### Get Contract Risk Profile
+
+```http
+GET /v1/intelligence/risk/contract/{address}
+```
+
+Example response:
+
+```json
+{
+  "address": "0x71C...3a9",
+  "risk_score": 0.12,
+  "status": "APPROVED",
+  "flags": [],
+  "liquidity_depth_usd": 1250000.00,
+  "timestamp": 1781641148
+}
+```
+
+### Real-Time Behavior Stream
+
+```text
+wss://api.omenaai.com/v1/intelligence/stream
+```
+
+<span id="faq" />
+
+## Chapter 9: FAQ
+
+### What makes OMENA different?
+
+OMENA focuses on intelligence infrastructure rather than historical indexing.
+
+### Does OMENA execute transactions?
+
+No. OMENA is an intelligence layer only.
+
+### How does OMENA maintain low latency?
+
+Custom mempool tracking nodes and validator-adjacent processing clusters.
+
+<span id="roadmap" />
+
+## Chapter 10: Roadmap
+
+1. Foundation
+2. Intelligence Engine
+3. Behavior Engine
+4. Signal Engine
+5. Developer APIs
+6. Autonomous Infrastructure

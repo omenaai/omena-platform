@@ -1,147 +1,104 @@
-"use client";
-
-import React, { useState } from "react";
-import { Globe, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
 
-const TwitterIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
+const footerGroups = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Docs", href: "/docs" },
+      { label: "Litepaper", href: "/litepaper" },
+      { label: "Roadmap", href: "/roadmap" },
+    ],
+  },
+  {
+    title: "Intelligence",
+    links: [
+      { label: "Architecture", href: "/docs#architecture" },
+      { label: "Risk Engine", href: "/docs#risk-intelligence" },
+      { label: "API Overview", href: "/docs#api-overview" },
+    ],
+  },
+];
 
-const GithubIcon = () => (
-  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-    <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482C19.138 20.193 22 16.44 22 12.017 22 6.484 17.522 2 12 2z" />
+const SolanaMark = () => (
+  <svg viewBox="0 0 90 56" className="h-8 w-14 text-white" aria-hidden="true">
+    <path fill="currentColor" d="M15 8h63l-13 12H2L15 8Zm0 28h63L65 48H2l13-12Zm63-8H15L2 16h63l13 12Z" />
   </svg>
 );
 
 export function Footer() {
-  const [langOpen, setLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState("English");
-
   return (
-    <footer className="w-full py-12 md:py-16 bg-card flex flex-col">
-      <div className="max-w-[1200px] mx-auto px-6 w-full flex flex-col">
-        
-        {/* Top Row: Brand Logo + Tagline */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-left w-full">
-          <Link
-            className="flex items-center gap-2 group"
-            href="#"
-          >
-            <Image
-              src="/logo.png"
-              alt="OMENA"
-              width={100}
-              height={26}
-              className="h-12 w-auto object-contain"
-            />
+    <footer className="w-full bg-white">
+      <section className="relative overflow-hidden bg-[#020202] py-10 text-white">
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-35 [background-image:radial-gradient(circle_at_center,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:18px_18px]" />
+        <div className="relative mx-auto flex w-full max-w-[1200px] flex-col items-center gap-7 px-6 text-center">
+          <p className="text-[11px] font-black uppercase tracking-[0.42em] text-white/55">Built on</p>
+          <div className="flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-14">
+            <div className="flex items-center gap-3">
+              <SolanaMark />
+              <span className="font-display text-2xl font-black uppercase tracking-[0.18em]">Solana</span>
+            </div>
+            <div className="font-display text-5xl font-black leading-none tracking-[-0.06em]">
+              aws
+              <span className="block h-2 w-20 rounded-[50%] border-b-4 border-white/90" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-10 px-6 py-12 md:py-16">
+        <div className="flex w-full flex-col items-start justify-between gap-5 text-left sm:flex-row sm:items-center">
+          <Link className="flex items-center" href="/" aria-label="OMENA home">
+            <Image src="/logo.png" alt="OMENA" width={120} height={32} className="h-12 w-auto object-contain" />
           </Link>
-          <p className="text-xs text-muted-foreground/80 font-medium">
-            The Agent Intelligence Layer for Web3.
+          <p className="max-w-md text-sm font-semibold leading-6 text-muted-foreground">
+            The Agent Intelligence Layer for Web3, built for autonomous systems that need trustworthy onchain context.
           </p>
         </div>
 
-        {/* Columns Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-left py-8">
-          
-          {/* Column 1: Company */}
+        <div className="grid grid-cols-1 gap-8 border-y border-slate-200 py-8 sm:grid-cols-2 md:grid-cols-4">
+          {footerGroups.map((group) => (
+            <div key={group.title} className="space-y-3.5">
+              <h4 className="text-[10px] font-black uppercase tracking-wider text-foreground">{group.title}</h4>
+              <ul className="space-y-2.5 text-xs font-semibold text-muted-foreground">
+                {group.links.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="transition-colors hover:text-primary">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
           <div className="space-y-3.5">
-            <h4 className="text-[10px] font-black uppercase tracking-wider text-foreground">
-              Company
-            </h4>
-            <ul className="space-y-2.5 text-xs text-muted-foreground font-semibold">
-              <li><Link href="#" className="hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Services</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Security Audit</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Testimonials</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Contact</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 2: Navigation */}
-          <div className="space-y-3.5">
-            <h4 className="text-[10px] font-black uppercase tracking-wider text-foreground">
-              Navigation
-            </h4>
-            <ul className="space-y-2.5 text-xs text-muted-foreground font-semibold">
-              <li><Link href="#" className="hover:text-primary transition-colors">Key Benefits</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Our Services</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Developer SDK</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Agent Sandbox</Link></li>
-            </ul>
-          </div>
-
-          
-
-          {/* Column 4: Language & Socials */}
-          <div className="flex flex-col gap-5 justify-between">
-            <div className="relative">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setLangOpen(!langOpen)}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[10px] font-bold text-muted-foreground bg-muted/30 hover:bg-muted/65 transition-colors w-fit cursor-pointer"
+            <h4 className="text-[10px] font-black uppercase tracking-wider text-foreground">Start</h4>
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/docs"
+                className="inline-flex h-10 w-fit items-center rounded-full bg-primary px-5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-primary/90"
               >
-                <Globe className="w-3.5 h-3.5 text-muted-foreground" />
-                <span>{currentLang}</span>
-                <ChevronDown className="w-3 h-3 text-muted-foreground/60" />
-              </Button>
-
-              {langOpen && (
-                <div className="absolute bottom-10 left-0 bg-card rounded-xl shadow-lg p-1.5 space-y-1 z-30 min-w-[110px] text-xs font-semibold">
-                  {["English", "Português", "Bahasa"].map((lang) => (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      key={lang}
-                      onClick={() => {
-                        setCurrentLang(lang);
-                        setLangOpen(false);
-                      }}
-                      className="w-full text-left px-2.5 py-1.5 hover:bg-muted/50 hover:text-primary rounded-md transition-colors cursor-pointer"
-                    >
-                      {lang}
-                    </Button>
-                  ))}
-                </div>
-              )}
+                Explore Docs
+              </Link>
+              <Link
+                href="/litepaper"
+                className="inline-flex h-10 w-fit items-center rounded-full bg-muted px-5 text-[10px] font-black uppercase tracking-wider text-foreground transition-colors hover:bg-muted/75"
+              >
+                Read Litepaper
+              </Link>
             </div>
-
-            {/* Social Icons */}
-            <div className="flex items-center gap-2.5">
-              {[
-                { icon: <TwitterIcon />, href: "#" },
-                { icon: <GithubIcon />, href: "#" },
-              ].map((soc, idx) => (
-                <Link
-                  key={idx}
-                  href={soc.href}
-                  className="w-8 h-8 rounded-full hover:text-primary bg-muted/30 hover:bg-card text-muted-foreground flex items-center justify-center transition-all active:scale-95 shadow-sm"
-                >
-                  {soc.icon}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-        </div>
-
-        {/* Bottom Copyright Row */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] text-muted-foreground font-semibold pt-6">
-          <p className="text-center sm:text-left">
-            &copy; {new Date().getFullYear()} Omena. All rights reserved.
-          </p>
-          <div className="flex items-center gap-4.5 justify-center sm:justify-end">
-            <Link href="#" className="hover:text-primary transition-colors">Terms &amp; Conditions</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Cookies</Link>
           </div>
         </div>
 
+        <div className="flex flex-col items-center justify-between gap-4 text-[10px] font-semibold text-muted-foreground sm:flex-row">
+          <p className="text-center sm:text-left">&copy; {new Date().getFullYear()} Omena. All rights reserved.</p>
+          <div className="flex items-center gap-4.5">
+            <Link href="/docs" className="transition-colors hover:text-primary">Docs</Link>
+            <Link href="/litepaper" className="transition-colors hover:text-primary">Litepaper</Link>
+            <Link href="/roadmap" className="transition-colors hover:text-primary">Roadmap</Link>
+          </div>
+        </div>
       </div>
     </footer>
   );

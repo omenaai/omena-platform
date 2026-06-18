@@ -63,7 +63,7 @@
   --spacing-base-size: 4px;
   --spacing-container-max: 1200px;
 
-  --font-display: var(--font-poppins), sans-serif;
+  --font-display: var(--font-jakarta), sans-serif;
   --font-body: var(--font-jakarta), sans-serif;
 
   --font-headline-sm: var(--font-display);
@@ -192,6 +192,112 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.omena-mdx {
+  max-width: 760px;
+  color: #252525;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.omena-mdx h2 {
+  margin-top: 48px;
+  margin-bottom: 12px;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #111;
+}
+
+.omena-mdx h3 {
+  margin-top: 28px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 800;
+  color: #171717;
+}
+
+.omena-mdx h4 {
+  margin-top: 22px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 800;
+}
+
+.omena-mdx p,
+.omena-mdx ul,
+.omena-mdx ol,
+.omena-mdx blockquote,
+.omena-mdx pre {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.omena-mdx ul,
+.omena-mdx ol {
+  padding-left: 22px;
+}
+
+.omena-mdx li {
+  margin-bottom: 6px;
+  color: #4f4f4f;
+}
+
+.omena-mdx span[id] {
+  display: block;
+  scroll-margin-top: 120px;
+}
+
+.omena-mdx blockquote {
+  border-left: 3px solid #111;
+  padding: 12px 18px;
+  background: #f7f7f8;
+  color: #252525;
+  font-weight: 700;
+}
+
+.omena-mdx hr {
+  margin: 36px 0;
+  border: 0;
+  border-top: 1px solid #ececec;
+}
+
+.omena-mdx code {
+  border-radius: 6px;
+  background: #f4f4f5;
+  padding: 2px 6px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.omena-mdx pre {
+  overflow-x: auto;
+  border-radius: 16px;
+  background: #080b14;
+  padding: 18px;
+  color: #e5edff;
+  box-shadow: var(--shadow-ambient);
+}
+
+.omena-mdx pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.docs-grid {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+  background-position: 196px 56px;
+  background-size: 132px 132px;
 }
 
 /* 3D Isometric Stack Rules (No borders) */

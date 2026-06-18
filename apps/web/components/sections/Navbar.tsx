@@ -17,10 +17,7 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "Docs", href: "/docs" },
   { name: "Litepaper", href: "/litepaper" },
-  { name: "Architecture", href: "#architecture" },
-  { name: "Roadmap", href: "#roadmap" },
-  { name: "Community", href: "#community" },
-  { name: "App", href: "#app" },
+  { name: "Roadmap", href: "/roadmap" },
 ];
 
 const announcements = [
@@ -60,20 +57,18 @@ export function Navbar() {
 
         <div className="hidden items-center justify-end gap-3 md:flex">
           <Link
-            href="https://github.com"
-            target="_blank"
-            rel="noreferrer"
+            href="/roadmap"
             className="flex shrink-0 items-center gap-1.5 rounded-full bg-muted/60 px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-foreground transition-colors hover:bg-foreground hover:text-background"
           >
             <GithubIcon className="h-3.5 w-3.5" />
-            <span>STAR</span>
+            <span>ROADMAP</span>
           </Link>
 
           <Link
-            href="#"
+            href="/docs"
             className="rounded-full bg-muted/60 px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-foreground transition-colors hover:bg-muted"
           >
-            SIGN IN
+            DOCS
           </Link>
         </div>
 
@@ -114,22 +109,6 @@ export function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link
-              href="https://github.com"
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => setIsOpen(false)}
-              className="text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
-            >
-              STAR
-            </Link>
-            <Link
-              href="#"
-              onClick={() => setIsOpen(false)}
-              className="text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
-            >
-              SIGN IN
-            </Link>
           </div>
           <Link
             href="/docs"

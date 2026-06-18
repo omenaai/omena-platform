@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Heading, Subheading } from "@/components/ui/Typography";
-import { InteractiveHoverButton } from "@/components/ui/InteractiveHoverButton";
 
 export function CtaSection() {
   return (
@@ -20,10 +20,25 @@ export function CtaSection() {
           Get access to the most comprehensive API for agentic workflows today.
         </Subheading>
         
-        <div className="pt-2">
-          <InteractiveHoverButton variant="white" className="h-11 flex items-center justify-center font-bold text-xs uppercase tracking-wider">
-            Start Building Free
-          </InteractiveHoverButton>
+        <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+          <Link
+            href="/docs"
+            className="inline-flex h-11 items-center justify-center rounded-full bg-white px-6 text-xs font-black uppercase tracking-wider text-[#245bff] transition-colors hover:bg-white/90"
+          >
+            Explore Docs
+          </Link>
+          <Link
+            href="/litepaper"
+            className="inline-flex h-11 items-center justify-center rounded-full bg-white/15 px-6 text-xs font-black uppercase tracking-wider text-white ring-1 ring-white/25 transition-colors hover:bg-white/20"
+          >
+            Litepaper
+          </Link>
+          <Link
+            href="/roadmap"
+            className="inline-flex h-11 items-center justify-center rounded-full bg-white/15 px-6 text-xs font-black uppercase tracking-wider text-white ring-1 ring-white/25 transition-colors hover:bg-white/20"
+          >
+            Roadmap
+          </Link>
         </div>
       </div>
 
