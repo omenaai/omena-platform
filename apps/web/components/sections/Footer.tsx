@@ -20,12 +20,6 @@ const footerGroups = [
   },
 ];
 
-const SolanaMark = () => (
-  <svg viewBox="0 0 90 56" className="h-8 w-14 text-white" aria-hidden="true">
-    <path fill="currentColor" d="M15 8h63l-13 12H2L15 8Zm0 28h63L65 48H2l13-12Zm63-8H15L2 16h63l13 12Z" />
-  </svg>
-);
-
 export function Footer() {
   return (
     <footer className="w-full bg-white">
@@ -35,12 +29,12 @@ export function Footer() {
           <p className="text-[11px] font-black uppercase tracking-[0.42em] text-white/55">Built on</p>
           <div className="flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-14">
             <div className="flex items-center gap-3">
-              <SolanaMark />
+              <Image src="/solana-logo-mark.svg" alt="Solana" width={101} height={88} className="h-8 w-auto" />
               <span className="font-display text-2xl font-black uppercase tracking-[0.18em]">Solana</span>
             </div>
-            <div className="font-display text-5xl font-black leading-none tracking-[-0.06em]">
-              aws
-              <span className="block h-2 w-20 rounded-[50%] border-b-4 border-white/90" />
+            <div className="flex items-center gap-3">
+              <Image src="/aws-logo.svg" alt="AWS" width={128} height={128} className="h-10 w-auto" />
+              <span className="font-display text-2xl font-black uppercase tracking-[0.18em]">AWS</span>
             </div>
           </div>
         </div>
@@ -83,9 +77,15 @@ export function Footer() {
               </Link>
               <Link
                 href="/litepaper"
-                className="inline-flex h-10 w-fit items-center rounded-full bg-muted px-5 text-[10px] font-black uppercase tracking-wider text-foreground transition-colors hover:bg-muted/75"
+                className="inline-flex h-10 w-fit items-center rounded-full border border-black/10 bg-white px-5 text-[10px] font-black uppercase tracking-wider text-foreground transition-colors hover:bg-muted/50"
               >
                 Read Litepaper
+              </Link>
+              <Link
+                href="https://github.com"
+                className="inline-flex h-10 w-fit items-center rounded-full bg-[#111827] px-5 text-[10px] font-black uppercase tracking-wider text-white transition-colors hover:bg-[#0b1220]"
+              >
+                GitHub
               </Link>
             </div>
           </div>
