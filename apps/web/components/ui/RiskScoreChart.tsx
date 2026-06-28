@@ -32,6 +32,8 @@ export type RiskScoreChartProps = {
   }[]
   currentScore?: number
   status?: "Low Risk" | "Medium Risk" | "High Risk"
+  /** Omit the card background/shadow when already nested inside another card. */
+  bare?: boolean
 }
 
 function getRiskLevel(score: number): "Low Risk" | "Medium Risk" | "High Risk" {
@@ -84,6 +86,7 @@ export function RiskScoreChart({
   data = defaultData,
   currentScore,
   status,
+  bare = false,
 }: RiskScoreChartProps) {
   const chartData = data && data.length > 0 ? data : defaultData
 
@@ -106,7 +109,7 @@ export function RiskScoreChart({
   }
 
   return (
-    <div className="w-full flex flex-col bg-card rounded-2xl p-4.5 shadow-sm">
+    <div className={bare ? "w-full flex flex-col" : "w-full flex flex-col bg-card rounded-2xl p-4.5 shadow-sm"}>
       {/* Header Info */}
       <div className="flex items-center justify-between mb-4 w-full">
         <div className="text-left">
@@ -207,20 +210,18 @@ export function RiskScoreChart({
       </div>
 
       {/* Legend mini */}
-      <div className="flex justify-center items-center gap-4 mt-3 pt-3.5 text-[9px] text-muted-foreground/60 font-bold select-none uppercase tracking-wider">
+      <div className="flex justify-center items-center gap-3 mt-3 text-[9px] text-muted-foreground/55 font-semibold select-none">
         <span className="flex items-center gap-1">
           <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
-          0–49 High Risk
+          0–49
         </span>
-        <span>&middot;</span>
         <span className="flex items-center gap-1">
           <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-          50–79 Medium
+          50–79
         </span>
-        <span>&middot;</span>
         <span className="flex items-center gap-1">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          80–100 Low Risk
+          80–100
         </span>
       </div>
     </div>

@@ -48,7 +48,7 @@ async function analyzeTarget(address: string) {
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                <span className="font-code-md text-[10px] text-zinc-555 ml-2">agent.ts</span>
+                <span className="ml-2 font-code-md text-[10px] text-white/35">agent.ts</span>
               </div>
               <Button
                 variant="ghost"

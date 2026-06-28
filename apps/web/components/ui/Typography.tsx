@@ -12,9 +12,9 @@ export function Heading({ as = "h2", size = "section", className, children, ...p
   return (
     <Component
       className={cn(
-        "text-balance font-extrabold tracking-normal text-foreground",
-        size === "hero" && "text-4xl leading-[0.98] sm:text-5xl lg:text-7xl",
-        size === "section" && "text-2xl leading-tight sm:text-3xl lg:text-5xl",
+        "font-display text-balance font-black tracking-[-0.045em] text-foreground",
+        size === "hero" && "text-4xl leading-[0.94] sm:text-5xl lg:text-7xl",
+        size === "section" && "text-2xl leading-[1] sm:text-3xl lg:text-5xl",
         size === "card" && "text-base leading-tight sm:text-lg lg:text-xl",
         className,
       )}
@@ -35,7 +35,7 @@ export function Subheading({ className, children, ...props }: React.HTMLAttribut
 
 export function Eyebrow({ className, children, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
   return (
-    <Badge variant="secondary" className={cn("mb-2 h-auto bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-primary", className)} {...props}>
+    <Badge variant="secondary" className={cn("mb-2 h-auto bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-primary", className)} {...props}>
       {children}
     </Badge>
   );

@@ -36,7 +36,7 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
   };
 
   return (
-    <section className="framer-animate max-w-[1200px] mx-auto px-6 py-12">
+    <section className="framer-animate mx-auto max-w-[1200px] px-6 py-12">
       {/* Heading Section */}
       <div className="mb-10 max-w-2xl text-left">
         <Eyebrow>INTERACTIVE</Eyebrow>
@@ -54,17 +54,9 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
       </div>
 
       {/* Unified Minimalist Light Console Box */}
-      <div className="relative w-full rounded-none bg-transparent p-0 flex flex-col gap-6 overflow-hidden md:rounded-3xl md:bg-card md:p-8 md:shadow-ambient">
+      <div className="relative flex w-full flex-col gap-6 overflow-hidden rounded-[32px] border border-border bg-card/80 p-5 shadow-ambient backdrop-blur-sm md:p-8">
         {/* Console Header Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 w-full relative z-10">
-          {/* Window controls */}
-          <div className="hidden sm:flex items-center gap-1.5 shrink-0">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500/95" />
-            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/95" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/95" />
-            <span className="font-body-md text-[9px] text-muted-foreground/50 uppercase tracking-widest ml-3 select-none">omena-console-v1.0.0</span>
-          </div>
-
+        <div className="flex w-full items-center justify-center pb-6 relative z-10">
           {/* Segmented Control Tabs */}
           <div className="flex bg-muted p-1 rounded-full w-full sm:w-auto overflow-x-auto gap-1">
             {tabs.map((tab) => {
@@ -87,23 +79,12 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
               );
             })}
           </div>
-
-          {/* Right Status */}
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="font-body-md text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest select-none">
-              Live Engine
-            </span>
-          </div>
         </div>
 
         {/* Main Content Area */}
-        <div className="grid lg:grid-cols-12 gap-8 items-stretch relative z-10">
+        <div className="relative z-10 grid items-stretch gap-8 lg:grid-cols-12">
           {/* Left Side: Explanations (4 cols) */}
-          <div className="lg:col-span-4 flex flex-col justify-between space-y-6 text-left">
+          <div className="flex flex-col justify-between space-y-6 text-left lg:col-span-5">
             <div className="space-y-4">
               {activeTab === "chat" && (
                 <div className="space-y-3 animate-in fade-in duration-300">
@@ -145,7 +126,7 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
               )}
 
               {/* Console Spec List */}
-              <div className="bg-muted/30 p-4.5 rounded-2xl space-y-3">
+              <div className="space-y-3 border-t border-border pt-5">
                 <span className="text-[9px] font-black text-muted-foreground/50 uppercase tracking-wider block">Key Capabilities</span>
                 <ul className="text-xs space-y-2.5 text-muted-foreground/85">
                   {activeTab === "chat" && (
@@ -212,17 +193,12 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
           </div>
 
           {/* Right Side: Tab Previews inside a gorgeous minimalist frame (8 cols) */}
-          <div className="lg:col-span-8 bg-transparent p-0 relative overflow-hidden min-h-0 flex flex-col justify-between md:min-h-[440px] md:rounded-2xl md:bg-muted/10 md:p-6 md:shadow-inner">
+          <div className="relative flex min-h-0 flex-col justify-between overflow-hidden rounded-[28px] border border-border bg-muted/50 p-4 md:min-h-[440px] md:p-6 lg:col-span-7">
             {activeTab === "chat" && (
               <div className="space-y-4 text-left animate-in fade-in duration-300 flex-grow flex flex-col justify-between">
-                <div className="flex items-center justify-between pb-3 mb-2">
-                  <div className="flex items-center gap-2 text-[10px] font-bold uppercase text-muted-foreground tracking-wider">
-                    <MessageSquare className="w-3.5 h-3.5 text-primary" />
-                    Conversational Sandbox
-                  </div>
-                  <span className="bg-primary/10 px-3 py-1 rounded-full text-[9px] font-bold text-primary uppercase tracking-wide">
-                    Investigate
-                  </span>
+                <div className="flex items-center gap-2 pb-3 mb-2 text-[10px] font-bold uppercase text-muted-foreground tracking-wider">
+                  <MessageSquare className="w-3.5 h-3.5 text-primary" />
+                  Conversational Sandbox
                 </div>
 
                 <div className="flex-grow flex flex-col justify-end space-y-4">
@@ -244,9 +220,9 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
 
                     <div className="pt-2.5">
                       <p className="font-bold text-xs text-foreground mb-2">Raydium contract risk report:</p>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
                         {auditRows.map((row) => (
-                          <div key={row.label} className="flex items-center justify-between text-xs text-muted-foreground p-2.5 bg-muted/20 rounded-xl">
+                          <div key={row.label} className="flex items-center justify-between text-xs text-muted-foreground py-1">
                             <span className="font-medium text-muted-foreground/80">{row.label}</span>
                             <span className="flex items-center gap-1 font-bold text-primary text-[10px]">
                               <CheckCircle2 className="w-3.5 h-3.5 fill-primary text-primary-foreground" />
@@ -257,8 +233,8 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
                       </div>
                     </div>
 
-                    <div className="mt-3 w-full">
-                      <RiskScoreChart />
+                    <div className="mt-3 w-full border-t border-border pt-3.5">
+                      <RiskScoreChart bare />
                     </div>
                   </div>
                 </div>
@@ -307,7 +283,7 @@ const analysis = await client.signals.analyze({ target: address, depth: 'compreh
                   <div>
                     <p className="text-[9px] text-muted-foreground/50 uppercase tracking-wider mb-2 select-none">Querying Solana Transaction Ledger</p>
                     <div className="font-code-md rounded-2xl bg-inverse-surface text-inverse-on-surface/75 p-4 leading-6 shadow-inner relative">
-                      <p className="text-zinc-555 select-none">{"// Extract transaction logs for scoring"}</p>
+                      <p className="select-none text-white/35">{"// Extract transaction logs for scoring"}</p>
                       <p>
                         <span className="text-inverse-primary font-bold">SELECT</span> block_time, value_usd, target_protocol
                       </p>

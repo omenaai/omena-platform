@@ -40,10 +40,9 @@ const useCasesData = [
 
 export function UseCases() {
   return (
-    <section className="bg-muted/30 py-16 framer-animate rounded-3xl max-w-[1200px] mx-auto px-6 mt-12">
-      <div className="mx-auto">
-        {/* Headings */}
-        <div className="mb-12 text-left">
+    <section className="framer-animate mx-auto mt-12 max-w-[1200px] rounded-[32px] border border-border bg-muted/40 px-6 py-16">
+      <div className="grid gap-10 xl:grid-cols-[0.92fr_1.08fr] xl:items-start">
+        <div className="text-left">
           <Eyebrow>GLOBAL TRANSFERS</Eyebrow>
           <Heading as="h2" size="section" className="font-black text-foreground leading-[1.3] text-balance">
             <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -53,18 +52,25 @@ export function UseCases() {
               </span>
             </span>
           </Heading>
-          <Subheading className="mt-1 text-muted-foreground/80">
-            Deep context, real time threat detection, and modular SDK hooks across multiple chains.
+          <Subheading className="mt-3 max-w-lg">
+            Deep context, real-time threat detection, and modular SDK hooks across multiple chains with clearer paths for both traders and developers.
           </Subheading>
+
+          <div className="mt-8 rounded-[28px] border border-border bg-card p-6 shadow-ambient">
+            <p className="text-[10px] font-black uppercase tracking-[0.28em] text-primary">Why this layout works</p>
+            <p className="mt-3 text-sm font-semibold leading-6 text-muted-foreground">
+              The left panel frames the value proposition once, while the right side lets users scan use cases in a dense two-column grid instead of a long single stack.
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {useCasesData.map((uc) => {
             const IconComponent = uc.icon;
             return (
               <SpotlightCard
                 key={uc.title}
-                className="hover:-translate-y-1 transition-all duration-300 group cursor-pointer bg-card p-6 md:p-8 text-left flex flex-col justify-between"
+                className="group flex min-h-[220px] cursor-pointer flex-col justify-between bg-card p-6 text-left transition-all duration-300 hover:-translate-y-1 md:p-8"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">

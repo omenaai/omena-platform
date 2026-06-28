@@ -66,7 +66,7 @@ export function BentoGrid() {
               </p>
               
               <div className="pt-2">
-                <Link href="#" className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:text-primary-dark transition-colors uppercase tracking-wider group/link">
+                <Link href="#" className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-primary transition-colors hover:text-[#1f4de0] group/link">
                   Learn more 
                   <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
                 </Link>
@@ -169,7 +169,7 @@ export function BentoGrid() {
                 <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                 Liquidity Lockup
               </span>
-              <span className="font-bold text-primary bg-primary-100/50 px-2 py-0.5 rounded-md">100% Locked</span>
+              <span className="rounded-md bg-primary/12 px-2 py-0.5 font-bold text-primary">100% Locked</span>
             </div>
             <div className="flex items-center justify-between text-[10px] p-2 bg-primary/5 rounded-xl transition-all hover:scale-[1.02] duration-300">
               <span className="font-bold text-emerald-800 flex items-center gap-1.5 uppercase tracking-wide">
@@ -191,7 +191,7 @@ export function BentoGrid() {
             <div className="bg-white/5 p-2.5 rounded-xl">
               <Terminal className="text-primary w-5 h-5" />
             </div>
-            <span className="font-body-md text-[9px] font-bold text-zinc-555 bg-zinc-900 px-2.5 py-1 rounded-full uppercase tracking-wider">
+            <span className="font-body-md rounded-full bg-white/5 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-white/50">
               REST & WS
             </span>
           </div>

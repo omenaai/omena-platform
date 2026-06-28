@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -25,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${jakarta.variable} ${mono.variable} antialiased min-h-screen flex flex-col bg-[#f7f8fb] text-[#080b14]`}>
+    <html lang="en" className={cn("font-sans", inter.variable)}>
+      <body className={`${jakarta.variable} ${mono.variable} min-h-screen flex flex-col antialiased bg-background text-foreground`}>
         {children}
       </body>
     </html>

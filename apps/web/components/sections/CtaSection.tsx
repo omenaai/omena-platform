@@ -2,46 +2,56 @@
 
 import React from "react";
 import Link from "next/link";
+import { buttonVariants } from "@/components/ui/Button";
 import { Heading, Subheading } from "@/components/ui/Typography";
+import { cn } from "@/lib/utils";
 
 export function CtaSection() {
   return (
-    <section className="w-full text-center bg-primary text-primary-foreground py-16 md:py-24 relative overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-6 relative z-10 space-y-6 flex flex-col items-center">
-        <Heading as="h2" size="section" className="text-primary-foreground max-w-2xl text-center font-black leading-[1.3] text-balance">
+    <section className="relative w-full overflow-hidden bg-primary py-16 text-center text-primary-foreground md:py-24">
+      <div className="mx-auto flex max-w-[1200px] flex-col items-center space-y-6 px-6 relative z-10">
+        <Heading as="h2" size="section" className="max-w-3xl text-center text-primary-foreground">
           <span className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
             <span>Build smarter agents with</span>
-            <span className="inline-flex items-center justify-center bg-background/15 text-primary-foreground rounded-full px-5 h-[1.05em] font-black leading-none">
+            <span className="inline-flex h-[1.1em] items-center justify-center rounded-full bg-white/14 px-5 text-primary-foreground shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] leading-none">
               onchain intelligence.
             </span>
           </span>
         </Heading>
-        <Subheading className="text-primary-foreground/85 max-w-2xl text-center leading-relaxed font-medium">
+        <Subheading className="max-w-2xl text-center font-medium text-primary-foreground/88">
           Get access to the most comprehensive API for agentic workflows today.
         </Subheading>
-        
-        <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+
+        <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:justify-center">
           <Link
             href="/docs"
-            className="inline-flex h-11 items-center justify-center rounded-full bg-white px-6 text-xs font-black uppercase tracking-wider text-[#245bff] transition-colors hover:bg-white/90"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "min-w-52 bg-background text-primary hover:bg-background/92"
+            )}
           >
             Explore Docs
           </Link>
           <Link
             href="/litepaper"
-            className="inline-flex h-11 items-center justify-center rounded-full bg-white/15 px-6 text-xs font-black uppercase tracking-wider text-white ring-1 ring-white/25 transition-colors hover:bg-white/20"
+            className={cn(
+              buttonVariants({ variant: "secondary", size: "lg" }),
+              "min-w-44 border border-white/16 bg-white/10 text-primary-foreground hover:bg-white/16"
+            )}
           >
             Litepaper
           </Link>
           <Link
             href="/roadmap"
-            className="inline-flex h-11 items-center justify-center rounded-full bg-white/15 px-6 text-xs font-black uppercase tracking-wider text-white ring-1 ring-white/25 transition-colors hover:bg-white/20"
+            className={cn(
+              buttonVariants({ variant: "secondary", size: "lg" }),
+              "min-w-44 border border-white/16 bg-white/10 text-primary-foreground hover:bg-white/16"
+            )}
           >
             Roadmap
           </Link>
         </div>
       </div>
-
     </section>
   );
 }
