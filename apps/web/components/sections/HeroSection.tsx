@@ -77,7 +77,7 @@ export function HeroSection() {
 
         <div className="lg:col-span-6">
           <div className="relative p-4 md:p-6 lg:p-8">
-            <div className="relative mx-auto w-full max-w-[380px] lg:max-w-[420px]">
+            <div className="relative mx-auto w-full max-w-[570px] lg:max-w-[630px]">
               <Image
                 src="/stack.png"
                 alt="Omena stack illustration"
@@ -126,3 +126,4 @@ export function HeroSection() {
     </section>
   );
 }
+
