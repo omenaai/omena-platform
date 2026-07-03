@@ -1,18 +1,19 @@
 import { DocShell } from "@/components/docs/DocShell";
 
 export const metadata = {
-  title: "OMENA Technical Documentation v0.1",
-  description: "Architecture, intelligence engines, API overview, FAQ, and roadmap for OMENA.",
+  title: "OMENA Technical Documentation v0.2",
+  description: "Phase 1 dashboard architecture, intelligence modules, API overview, and delivery notes for OMENA.",
 };
 
 export default function Layout({ children }) {
   return (
     <DocShell
-      title="OMENA Technical Documentation v0.1"
-      description="Architecture, intelligence engines, API overview, FAQ, and roadmap for OMENA."
+      title="OMENA Technical Documentation v0.2"
+      description="Phase 1 turns OMENA into a usable token analyzer dashboard: Solana token in, structured intelligence report out."
       links={[
         { href: "/docs", label: "Technical Docs" },
         { href: "/litepaper", label: "Litepaper" },
+        { href: "/app", label: "Dashboard" },
         { href: "/roadmap", label: "Roadmap" },
       ]}
       sections={[
@@ -35,31 +36,32 @@ export default function Layout({ children }) {
 
 ## Chapter 3: Architecture
 
-### Layer 1 — Blockchain Networks
+Phase 1 is designed as a minimal dashboard product, not a trading interface.
 
-- Solana
-- Multi-chain environments
+User flow:
 
-### Layer 2 — Onchain Data Layer
+1. User opens `/app`
+2. User pastes a Solana token address
+3. OMENA validates the address
+4. OMENA fetches market data from DexScreener
+5. OMENA runs Risk, Behavior, Signal, and Context modules
+6. OMENA returns a readable report in `/app/analyze`
 
-- Mempool parsers
-- RPC node clusters
-- State indexers
-- Raw block ingestion
+Current runtime layers:
 
-### Layer 3 — OMENA Intelligence Layer
+### Layer 1 - Web App
 
-- Risk Engine
-- Behavior Engine
-- Signal Engine
-- Context Engine
+- Next.js App Router frontend
+- Landing page
+- Dashboard routes
+- Docs pages
 
-### Layer 4 — Agent Layer
+### Layer 2 - Data and Analysis
 
-- Autonomous agents
-- Protocol bots
-- Developer systems
-- REST APIs / WebSockets
+- DexScreener market snapshot
+- Optional Helius enrichment
+- Modular intelligence functions
+- Mock fallback when live data is incomplete
 
 <span id="risk-intelligence" />
 
@@ -67,13 +69,23 @@ export default function Layout({ children }) {
 
 ### Core Capabilities
 
-- Dynamic contract auditing
-- Counterparty scoring
-- Liquidity drain probability
+- Liquidity quality scoring
+- Pair age and market depth checks
+- Volume versus liquidity stress checks
+- Plain-language risk summary
 
 ### Output
 
-`Risk Score ∈ [0.0, 1.0]`
+```json
+{
+  "level": "Low | Medium | High",
+  "score": 0,
+  "summary": "Readable explanation",
+  "flags": [],
+  "liquidityHealth": "string",
+  "holderConcentration": "string"
+}
+```
 
 <span id="behavior-intelligence" />
 
@@ -81,9 +93,10 @@ export default function Layout({ children }) {
 
 ### Core Capabilities
 
-- Wallet clustering
-- Intent classification
-- MEV extraction profiling
+- Buy versus sell activity interpretation
+- Accumulation versus distribution status
+- Deployer visibility note
+- Graceful partial-data handling
 
 <span id="signal-intelligence" />
 
@@ -91,9 +104,10 @@ export default function Layout({ children }) {
 
 ### Core Capabilities
 
-- Cross-chain flow telemetry
-- Anomalous volume metrics
-- Slippage & depth estimators
+- 24h price movement review
+- Volume abnormality checks
+- Transaction flow shifts
+- Severity classification: Normal, Watch, Alert
 
 <span id="context-intelligence" />
 
@@ -101,37 +115,46 @@ export default function Layout({ children }) {
 
 ### Core Capabilities
 
-- Cross-modal data fusion
-- Narrative mapping
-- Heuristic context matching
+- Merge module outputs into one report
+- Keep language readable and non-hype
+- Produce final verdict and caution level
+- Make report easy to copy or share
 
 <span id="api-overview" />
 
 ## Chapter 8: API Overview
 
-### Get Contract Risk Profile
+### Analyze Token
 
 ```http
-GET /v1/intelligence/risk/contract/{address}
+POST /api/analyze-token
 ```
 
-Example response:
+Request body:
 
 ```json
 {
-  "address": "0x71C...3a9",
-  "risk_score": 0.12,
-  "status": "APPROVED",
-  "flags": [],
-  "liquidity_depth_usd": 1250000.00,
-  "timestamp": 1781641148
+  "tokenAddress": "SOLANA_TOKEN_ADDRESS",
+  "mode": "auto"
 }
 ```
 
-### Real-Time Behavior Stream
+Response shape:
 
-```text
-wss://api.omenaai.com/v1/intelligence/stream
+```json
+{
+  "status": "ok | insufficient_data | error",
+  "token": {},
+  "risk": {},
+  "behavior": {},
+  "signals": {},
+  "context": {},
+  "meta": {
+    "dataSource": "mock | live | mixed",
+    "generatedAt": "ISO timestamp",
+    "insufficientDataReasons": []
+  }
+}
 ```
 
 <span id="faq" />
@@ -140,23 +163,26 @@ wss://api.omenaai.com/v1/intelligence/stream
 
 ### What makes OMENA different?
 
-OMENA focuses on intelligence infrastructure rather than historical indexing.
+OMENA focuses on intelligence output, not trading execution.
 
 ### Does OMENA execute transactions?
 
 No. OMENA is an intelligence layer only.
 
-### How does OMENA maintain low latency?
+### Does Phase 1 require API keys?
 
-Custom mempool tracking nodes and validator-adjacent processing clusters.
+No. The dashboard works with mock fallback when live coverage is incomplete.
+
+### Which live data source is active first?
+
+DexScreener is the first live source in Phase 1.
 
 <span id="roadmap" />
 
 ## Chapter 10: Roadmap
 
-1. Foundation
-2. Intelligence Engine
-3. Behavior Engine
-4. Signal Engine
-5. Developer APIs
-6. Autonomous Infrastructure
+1. UI shell and reusable module cards
+2. Mock-backed report flow
+3. DexScreener live market integration
+4. Helius enrichment for behavior and signal depth
+5. Stronger saved analysis and sharing workflows

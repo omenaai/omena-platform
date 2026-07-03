@@ -21,6 +21,21 @@ interface SparklesTextProps extends React.HTMLAttributes<HTMLDivElement> {
   };
 }
 
+function generateSparkle(colors: { first: string; second: string }): Sparkle {
+  return {
+    id: Math.random().toString(36).substring(2, 9),
+    x: `${Math.random() * 90 + 5}%`,
+    y: `${Math.random() * 90 + 5}%`,
+    color: Math.random() > 0.5 ? colors.first : colors.second,
+    delay: Math.random() * 1.5,
+    scale: Math.random() * 0.8 + 0.5,
+  };
+}
+
+function createSparkles(count: number, colors: { first: string; second: string }) {
+  return Array.from({ length: count }, () => generateSparkle(colors));
+}
+
 export function SparklesText({
   children,
   className,
@@ -28,31 +43,17 @@ export function SparklesText({
   colors = { first: "#2563eb", second: "#60a5fa" },
   ...props
 }: SparklesTextProps) {
-  const [sparkles, setSparkles] = useState<Sparkle[]>([]);
+  const [sparkles, setSparkles] = useState<Sparkle[]>(() => createSparkles(sparklesCount, colors));
 
   useEffect(() => {
-    const generateSparkle = (): Sparkle => {
-      return {
-        id: Math.random().toString(36).substring(2, 9),
-        x: `${Math.random() * 90 + 5}%`,
-        y: `${Math.random() * 90 + 5}%`,
-        color: Math.random() > 0.5 ? colors.first : colors.second,
-        delay: Math.random() * 1.5,
-        scale: Math.random() * 0.8 + 0.5,
-      };
-    };
-
-    const initialSparkles = Array.from({ length: sparklesCount }, generateSparkle);
-    setSparkles(initialSparkles);
-
     const interval = setInterval(() => {
       setSparkles((current) =>
-        current.map((sparkle) => (Math.random() > 0.3 ? sparkle : generateSparkle()))
+        current.map((sparkle) => (Math.random() > 0.3 ? sparkle : generateSparkle(colors))),
       );
     }, 1200);
 
     return () => clearInterval(interval);
-  }, [colors.first, colors.second, sparklesCount]);
+  }, [colors, sparklesCount]);
 
   return (
     <div className={cn("relative inline-block", className)} {...props}>
@@ -65,7 +66,7 @@ export function SparklesText({
           animation: sparkle-pulse 1.2s ease-in-out infinite;
         }
       `}</style>
-      
+
       {sparkles.map((sparkle) => (
         <svg
           key={sparkle.id}
@@ -76,6 +77,7 @@ export function SparklesText({
             animationDelay: `${sparkle.delay}s`,
             width: "16px",
             height: "16px",
+            transform: `scale(${sparkle.scale})`,
           }}
           viewBox="0 0 21 21"
         >

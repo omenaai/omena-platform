@@ -7,6 +7,12 @@ import Link from "next/link";
 
 const railItems = [
   {
+    href: "/app",
+    title: "Token analyzer",
+    description: "Paste a Solana token address and generate a structured OMENA report.",
+    icon: DatabaseZap,
+  },
+  {
     href: "/docs",
     title: "Real-time streams",
     description: "Unified access to chain events and wallet activity.",
@@ -17,12 +23,6 @@ const railItems = [
     title: "Intelligence layer",
     description: "Contextual scoring that turns raw activity into decisions.",
     icon: Activity,
-  },
-  {
-    href: "/roadmap",
-    title: "Low-latency access",
-    description: "Built for fast transaction, wallet, and log intelligence.",
-    icon: DatabaseZap,
   },
 ];
 
@@ -55,29 +55,28 @@ export function HeroSection() {
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:pt-2">
             <Link
-              href="/docs"
+              href="/app"
               className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-7 text-xs font-black uppercase tracking-wider text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 active:scale-[0.98]"
+            >
+              Open Dashboard
+            </Link>
+            <Link
+              href="/docs"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-muted/80 px-7 text-xs font-black uppercase tracking-wider text-foreground transition-colors hover:bg-muted active:scale-[0.98]"
             >
               Explore Docs
             </Link>
             <Link
               href="/litepaper"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-muted/80 px-7 text-xs font-black uppercase tracking-wider text-foreground transition-colors hover:bg-muted active:scale-[0.98]"
-            >
-              Read Litepaper
-            </Link>
-            <Link
-              href="/roadmap"
               className="inline-flex h-12 items-center justify-center rounded-full bg-card px-7 text-xs font-black uppercase tracking-wider text-foreground ring-1 ring-border transition-colors hover:bg-muted active:scale-[0.98]"
             >
-              View Roadmap
+              Read Litepaper
             </Link>
           </div>
         </div>
 
         <div className="lg:col-span-6">
-          <div className="relative overflow-hidden rounded-[32px] border border-border bg-[#07101f] p-8 shadow-[0_24px_80px_rgba(8,18,37,0.22)] md:p-10 lg:p-12">
-            <div className="pointer-events-none absolute inset-x-[18%] top-[18%] h-[280px] rounded-full bg-primary/20 blur-3xl" />
+          <div className="relative p-4 md:p-6 lg:p-8">
             <div className="relative mx-auto w-full max-w-[380px] lg:max-w-[420px]">
               <Image
                 src="/stack.png"
@@ -85,7 +84,7 @@ export function HeroSection() {
                 width={1536}
                 height={1024}
                 priority
-                className="h-auto w-full object-contain drop-shadow-2xl"
+                className="h-auto w-full object-contain"
               />
             </div>
           </div>
@@ -96,10 +95,10 @@ export function HeroSection() {
         <div className="mx-auto grid w-full max-w-[1200px] grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           <div className="flex items-center justify-center p-6 lg:justify-start">
             <Link
-              href="/docs"
+              href="/app"
               className="inline-flex h-12 w-full items-center justify-center rounded-full bg-foreground text-xs font-black uppercase tracking-widest text-background shadow-md transition-colors hover:bg-foreground/90 active:scale-95"
             >
-              Explore Docs
+              Open Dashboard
             </Link>
           </div>
 
