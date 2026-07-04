@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const railItems = [
   {
-    href: "/app",
+    href: "/auth",
     title: "Token analyzer",
     description: "Paste a Solana token address and generate a structured OMENA report.",
     icon: DatabaseZap,
@@ -55,7 +55,7 @@ export function HeroSection() {
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:pt-2">
             <Link
-              href="/app"
+              href="/auth?next=/app"
               className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-7 text-xs font-black uppercase tracking-wider text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 active:scale-[0.98]"
             >
               Open Dashboard
@@ -95,7 +95,7 @@ export function HeroSection() {
         <div className="mx-auto grid w-full max-w-[1200px] grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           <div className="flex items-center justify-center p-6 lg:justify-start">
             <Link
-              href="/app"
+              href="/auth?next=/app"
               className="inline-flex h-12 w-full items-center justify-center rounded-full bg-foreground text-xs font-black uppercase tracking-widest text-background shadow-md transition-colors hover:bg-foreground/90 active:scale-95"
             >
               Open Dashboard

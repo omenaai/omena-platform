@@ -24,7 +24,7 @@ export function CtaSection() {
 
         <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:justify-center">
           <Link
-            href="/app"
+            href="/auth?next=/app"
             className={cn(buttonVariants({ size: "lg" }), "min-w-52 bg-background text-primary hover:bg-background/92")}
           >
             Open Dashboard

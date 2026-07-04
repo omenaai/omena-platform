@@ -1,15 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { ArrowUpRight, DatabaseZap, ShieldCheck, Waves } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { WalletSignInCard } from "@/components/auth/WalletSignInCard";
 import { getRequestSession } from "@/lib/auth/session";
-
-const featureTiles = [
-  { icon: ShieldCheck, label: "Session" },
-  { icon: DatabaseZap, label: "Analysis" },
-  { icon: Waves, label: "Signals" },
-];
 
 export default async function AuthPage({
   searchParams,
@@ -25,68 +19,54 @@ export default async function AuthPage({
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="grid min-h-screen lg:grid-cols-[minmax(0,1fr)_460px]">
-        <section className="relative hidden overflow-hidden border-r border-border/70 lg:block">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(36,91,255,0.16),transparent_28%),radial-gradient(circle_at_78%_58%,rgba(36,91,255,0.12),transparent_32%),linear-gradient(180deg,rgba(251,253,255,0.98)_0%,rgba(244,248,255,0.98)_100%)]" />
-          <div className="relative flex h-full flex-col justify-between p-8">
-            <div className="flex items-center justify-between gap-4">
-              <Link className="flex items-center" href="/" aria-label="OMENA home">
-                <Image src="/logo.png" alt="OMENA" width={132} height={34} className="h-8 w-auto object-contain" priority />
-              </Link>
-              <Link href="/" className="inline-flex items-center gap-1.5 text-foreground/72 transition-colors hover:text-foreground" aria-label="Back to landing">
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
+    <div className="min-h-screen bg-background text-foreground flex">
+      {/* Left panel — branding */}
+      <div className="hidden lg:flex lg:w-[420px] shrink-0 flex-col justify-between border-r border-border px-10 py-12">
+        <Link href="/" aria-label="OMENA home">
+          <Image src="/logo.png" alt="OMENA" width={120} height={32} className="h-8 w-auto object-contain" priority />
+        </Link>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-[30px] border border-primary/10 bg-white/55 p-6 sm:col-span-2">
-                <div className="flex gap-3">
-                  {featureTiles.map((tile) => {
-                    const Icon = tile.icon;
+        <div className="space-y-5">
+          <p className="text-[10px] font-black uppercase tracking-[0.26em] text-primary">
+            Agent Intelligence Layer
+          </p>
+          <h2 className="font-display text-4xl font-black leading-[0.95] tracking-[-0.06em] text-foreground">
+            Real-time<br />onchain<br />intelligence.
+          </h2>
+          <p className="text-sm font-medium leading-7 text-muted-foreground max-w-[240px]">
+            Risk analysis, wallet intelligence, and actionable signals for AI agents.
+          </p>
+        </div>
 
-                    return (
-                      <div key={tile.label} className="flex h-12 w-12 items-center justify-center rounded-2xl border border-border/60 bg-white/70 text-primary">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+        <p className="text-[10px] font-medium text-muted-foreground/60 tracking-wide">
+          © {new Date().getFullYear()} OMENA AI
+        </p>
+      </div>
 
-              <div className="rounded-[30px] border border-border/60 bg-white/50 p-6 sm:col-span-2">
-                <div className="h-[280px] rounded-[26px] border border-dashed border-primary/20 bg-[radial-gradient(circle_at_30%_25%,rgba(36,91,255,0.14),transparent_26%),radial-gradient(circle_at_70%_70%,rgba(36,91,255,0.12),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.52),rgba(244,248,255,0.7))]" />
-              </div>
-            </div>
+      {/* Right panel — form */}
+      <div className="flex-1 flex flex-col min-h-screen">
+        {/* Top bar */}
+        <div className="flex items-center justify-between px-8 py-6 lg:px-12">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="h-3 w-3" />
+            Back
+          </Link>
 
-            <div className="flex gap-3">
-              {featureTiles.map((tile) => {
-                const Icon = tile.icon;
+          {/* Logo — top right */}
+          <Link href="/" aria-label="OMENA home">
+            <Image src="/logo.png" alt="OMENA" width={100} height={28} className="h-7 w-auto object-contain" priority />
+          </Link>
+        </div>
 
-                return (
-                  <div key={tile.label} className="flex h-14 w-14 items-center justify-center rounded-2xl border border-border/60 bg-white/60 text-foreground/72">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section className="flex min-h-screen items-center justify-center px-6 py-10 sm:px-8 lg:px-10">
-          <div className="w-full max-w-[420px]">
-            <div className="mb-8 flex items-center justify-between lg:hidden">
-              <Link className="flex items-center" href="/" aria-label="OMENA home">
-                <Image src="/logo.png" alt="OMENA" width={132} height={34} className="h-8 w-auto object-contain" priority />
-              </Link>
-              <Link href="/" className="inline-flex items-center text-foreground/72 transition-colors hover:text-foreground" aria-label="Back to landing">
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-
+        {/* Form centered */}
+        <div className="flex-1 flex items-center justify-center px-8 py-10">
+          <div className="w-full max-w-[360px]">
             <WalletSignInCard nextPath={nextPath} />
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );
