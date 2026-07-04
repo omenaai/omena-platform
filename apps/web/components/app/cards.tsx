@@ -27,6 +27,24 @@ function formatPercent(value: number | null) {
   return `${value > 0 ? "+" : ""}${value.toFixed(1)}%`;
 }
 
+function getFriendlyReason(reason: string) {
+  const normalized = reason.toLowerCase();
+
+  if (normalized.includes("ollama") || normalized.includes("context")) {
+    return "AI summary is using fallback mode right now.";
+  }
+
+  if (normalized.includes("helius") || normalized.includes("onchain")) {
+    return "Some onchain details are limited right now.";
+  }
+
+  if (normalized.includes("dexscreener") || normalized.includes("market")) {
+    return "Some market details are limited right now.";
+  }
+
+  return "Some parts of this report are limited right now.";
+}
+
 export function ModulePreviewGrid() {
   const items = [
     { title: "Risk Intelligence", text: "Liquidity quality, market depth, token age, and caution flags.", icon: ShieldCheck },
@@ -262,7 +280,7 @@ export function ErrorAnalyzeState({ message }: { message: string }) {
       <CardContent className="flex flex-col gap-3 px-6 py-10">
         <Badge variant="destructive" className="w-fit">Error</Badge>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em] text-foreground">Analysis could not be generated.</h2>
-        <p className="text-sm font-medium leading-6 text-foreground/80">{message}</p>
+        <p className="text-sm font-medium leading-6 text-foreground/80">{message || "The report is not available right now. Please try again."}</p>
       </CardContent>
     </Card>
   );
@@ -273,7 +291,7 @@ export function InsufficientDataBanner({ reasons }: { reasons: string[] }) {
   return (
     <div className="rounded-[28px] border border-border/80 bg-secondary/55 px-5 py-4 text-sm font-medium text-foreground/88">
       <div className="mb-2 flex items-center gap-2 font-black text-foreground"><AlertCircle className="h-4 w-4 text-primary" />Partial data notice</div>
-      <div className="space-y-1.5">{reasons.map((reason) => <p key={reason}>{reason}</p>)}</div>
+      <div className="space-y-1.5">{reasons.map((reason) => <p key={reason}>{getFriendlyReason(reason)}</p>)}</div>
     </div>
   );
 }

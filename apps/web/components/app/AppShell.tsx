@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, FileText, LayoutDashboard } from "lucide-react";
@@ -6,6 +5,7 @@ import { LogoutButton } from "@/components/auth/LogoutButton";
 import { buttonVariants } from "@/components/ui/Button";
 import { getRequestSession } from "@/lib/auth/session";
 import { cn } from "@/lib/utils";
+import type { ReactNode } from "react";
 
 type AppShellProps = {
   children: ReactNode;
@@ -17,8 +17,20 @@ const navLinks = [
   { href: "/litepaper", label: "Litepaper" },
 ];
 
-function truncateWallet(address: string) {
-  return `${address.slice(0, 4)}...${address.slice(-4)}`;
+function formatIdentity(session: Awaited<ReturnType<typeof getRequestSession>>) {
+  if (!session) {
+    return "No Session";
+  }
+
+  if (session.walletAddress) {
+    return `${session.walletAddress.slice(0, 4)}...${session.walletAddress.slice(-4)}`;
+  }
+
+  if (session.email) {
+    return session.email;
+  }
+
+  return session.name || "Signed In";
 }
 
 export async function AppShell({ children }: AppShellProps) {
@@ -47,8 +59,8 @@ export async function AppShell({ children }: AppShellProps) {
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="hidden rounded-full border border-border bg-card px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-foreground/72 sm:inline-flex">
-              {session ? truncateWallet(session.walletAddress) : "No Session"}
+            <div className="hidden max-w-[220px] truncate rounded-full border border-border bg-card px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-foreground/72 sm:inline-flex">
+              {formatIdentity(session)}
             </div>
             <Link
               href="/docs#api-overview"

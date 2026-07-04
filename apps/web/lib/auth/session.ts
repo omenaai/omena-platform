@@ -1,10 +1,14 @@
 import { SignJWT, jwtVerify, type JWTPayload } from "jose";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { AUTH_AUDIENCE, AUTH_COOKIE_NAME, AUTH_ISSUER, AUTH_SESSION_TTL_SECONDS, getAuthSecret } from "@/lib/auth/config";
+import { emailAuth, ensureBetterAuthSchema } from "@/lib/auth/better-auth";
 
 export type AuthSession = {
   userId: string;
-  walletAddress: string;
+  provider: "wallet" | "email";
+  walletAddress: string | null;
+  email: string | null;
+  name: string | null;
   issuedAt: number;
   expiresAt: number;
 };
@@ -14,10 +18,30 @@ type SessionClaims = JWTPayload & {
   walletAddress: string;
 };
 
-function buildSessionFromClaims(payload: SessionClaims): AuthSession {
+function toUnixTimestamp(value: unknown) {
+  if (typeof value === "number") {
+    return value;
+  }
+
+  if (value instanceof Date) {
+    return Math.floor(value.getTime() / 1000);
+  }
+
+  if (typeof value === "string") {
+    const parsed = Date.parse(value);
+    return Number.isNaN(parsed) ? 0 : Math.floor(parsed / 1000);
+  }
+
+  return 0;
+}
+
+function buildWalletSessionFromClaims(payload: SessionClaims): AuthSession {
   return {
     userId: payload.uid,
+    provider: "wallet",
     walletAddress: payload.walletAddress,
+    email: null,
+    name: null,
     issuedAt: payload.iat ?? 0,
     expiresAt: payload.exp ?? 0,
   };
@@ -38,7 +62,18 @@ export async function createSessionToken(walletAddress: string) {
     .setExpirationTime(expiresAt)
     .sign(getAuthSecret());
 
-  return { token, session: { userId: `wallet:${walletAddress}`, walletAddress, issuedAt, expiresAt } satisfies AuthSession };
+  return {
+    token,
+    session: {
+      userId: `wallet:${walletAddress}`,
+      provider: "wallet",
+      walletAddress,
+      email: null,
+      name: null,
+      issuedAt,
+      expiresAt,
+    } satisfies AuthSession,
+  };
 }
 
 export async function verifySessionToken(token: string) {
@@ -47,10 +82,10 @@ export async function verifySessionToken(token: string) {
     audience: AUTH_AUDIENCE,
   });
 
-  return buildSessionFromClaims(payload as SessionClaims);
+  return buildWalletSessionFromClaims(payload as SessionClaims);
 }
 
-export async function getRequestSession() {
+async function getWalletRequestSession() {
   const cookieStore = await cookies();
   const token = cookieStore.get(AUTH_COOKIE_NAME)?.value;
 
@@ -60,6 +95,43 @@ export async function getRequestSession() {
 
   try {
     return await verifySessionToken(token);
+  } catch {
+    return null;
+  }
+}
+
+async function getEmailRequestSession() {
+  await ensureBetterAuthSchema();
+
+  const requestHeaders = await headers();
+  const session = await emailAuth.api.getSession({
+    headers: requestHeaders,
+  });
+
+  if (!session) {
+    return null;
+  }
+
+  return {
+    userId: session.user.id,
+    provider: "email",
+    walletAddress: null,
+    email: session.user.email ?? null,
+    name: session.user.name ?? null,
+    issuedAt: toUnixTimestamp(session.session.createdAt),
+    expiresAt: toUnixTimestamp(session.session.expiresAt),
+  } satisfies AuthSession;
+}
+
+export async function getRequestSession() {
+  const walletSession = await getWalletRequestSession();
+
+  if (walletSession) {
+    return walletSession;
+  }
+
+  try {
+    return await getEmailRequestSession();
   } catch {
     return null;
   }

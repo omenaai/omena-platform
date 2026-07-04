@@ -8,8 +8,11 @@ export async function GET() {
     return NextResponse.json({ session: null }, { status: 401 });
   }
 
-  const refreshed = await createSessionToken(session.walletAddress);
-  await setSessionCookie(refreshed.token);
+  if (session.provider === "wallet" && session.walletAddress) {
+    const refreshed = await createSessionToken(session.walletAddress);
+    await setSessionCookie(refreshed.token);
+    return NextResponse.json({ session: refreshed.session });
+  }
 
-  return NextResponse.json({ session: refreshed.session });
+  return NextResponse.json({ session });
 }

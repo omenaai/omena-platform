@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowUpRight, GitBranch, Menu, X } from "lucide-react";
+import { ArrowUpRight, GitBranch, LogIn, Menu, X } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 import Link from "next/link";
@@ -62,31 +62,33 @@ export function Navbar() {
           </Link>
 
           <Link
-            href="/docs"
-            className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-background transition-colors hover:bg-primary"
-          >
-            <span>DOCS</span>
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </Link>
-
-          <Link
             href={siteConfig.social.github}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-foreground transition-colors hover:border-primary/20 hover:bg-muted"
+            aria-label="GitHub"
+            title="GitHub"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-primary/20 hover:bg-muted"
           >
-            <FaGithub className="h-3.5 w-3.5" />
-            <span>GitHub</span>
+            <FaGithub className="h-4 w-4" />
           </Link>
 
           <Link
             href={siteConfig.social.x}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-foreground transition-colors hover:border-primary/20 hover:bg-muted"
+            aria-label="X"
+            title="X"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-primary/20 hover:bg-muted"
           >
-            <RiTwitterXFill className="h-3.5 w-3.5" />
-            <span>X</span>
+            <RiTwitterXFill className="h-4 w-4" />
+          </Link>
+
+          <Link
+            href="/auth"
+            className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-background transition-colors hover:bg-primary"
+          >
+            <span>Sign In</span>
+            <LogIn className="h-3.5 w-3.5" />
           </Link>
         </div>
 
@@ -129,11 +131,12 @@ export function Navbar() {
             ))}
           </div>
           <Link
-            href="/docs"
+            href="/auth"
             onClick={() => setIsOpen(false)}
-            className="flex h-10 w-full items-center justify-center rounded-full bg-primary text-xs font-black uppercase tracking-wider text-primary-foreground transition-colors hover:bg-primary/85"
+            className="flex h-10 w-full items-center justify-center gap-1.5 rounded-full bg-primary text-xs font-black uppercase tracking-wider text-primary-foreground transition-colors hover:bg-primary/85"
           >
-            Explore Docs
+            <span>Sign In</span>
+            <LogIn className="h-4 w-4" />
           </Link>
           <div className="grid grid-cols-2 gap-2">
             <Link
@@ -141,20 +144,22 @@ export function Navbar() {
               target="_blank"
               rel="noreferrer"
               onClick={() => setIsOpen(false)}
-              className="flex h-10 items-center justify-center gap-1.5 rounded-full border border-border bg-card text-xs font-black uppercase tracking-wider text-foreground transition-colors hover:bg-muted/60"
+              aria-label="GitHub"
+              title="GitHub"
+              className="flex h-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-muted/60"
             >
               <FaGithub className="h-4 w-4" />
-              GitHub
             </Link>
             <Link
               href={siteConfig.social.x}
               target="_blank"
               rel="noreferrer"
               onClick={() => setIsOpen(false)}
-              className="flex h-10 items-center justify-center gap-1.5 rounded-full border border-border bg-card text-xs font-black uppercase tracking-wider text-foreground transition-colors hover:bg-muted/60"
+              aria-label="X"
+              title="X"
+              className="flex h-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-muted/60"
             >
               <RiTwitterXFill className="h-4 w-4" />
-              X
             </Link>
           </div>
         </div>
@@ -162,3 +167,4 @@ export function Navbar() {
     </header>
   );
 }
+

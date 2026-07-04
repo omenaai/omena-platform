@@ -1,13 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 import { AUTH_AUDIENCE, AUTH_COOKIE_NAME, AUTH_ISSUER, getAuthSecret } from "@/lib/auth/config";
+import { emailAuth, ensureBetterAuthSchema } from "@/lib/auth/better-auth";
 
 const SUBDOMAIN_ROUTES: Record<string, string> = {
   docs: "/docs",
   litepaper: "/litepaper",
 };
 
-async function hasValidSession(request: NextRequest) {
+async function hasValidWalletSession(request: NextRequest) {
   const token = request.cookies.get(AUTH_COOKIE_NAME)?.value;
 
   if (!token) {
@@ -23,6 +24,27 @@ async function hasValidSession(request: NextRequest) {
   } catch {
     return false;
   }
+}
+
+async function hasValidEmailSession(request: NextRequest) {
+  try {
+    await ensureBetterAuthSchema();
+    const session = await emailAuth.api.getSession({
+      headers: request.headers,
+    });
+
+    return Boolean(session);
+  } catch {
+    return false;
+  }
+}
+
+async function hasValidSession(request: NextRequest) {
+  if (await hasValidWalletSession(request)) {
+    return true;
+  }
+
+  return hasValidEmailSession(request);
 }
 
 export async function proxy(request: NextRequest) {

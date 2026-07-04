@@ -18,6 +18,20 @@ type AnalyzePageProps = {
   }>;
 };
 
+function getFriendlyAnalyzeError(message?: string) {
+  const normalized = message?.toLowerCase() ?? "";
+
+  if (normalized.includes("unauthorized")) {
+    return "Please sign in to continue.";
+  }
+
+  if (normalized.includes("required") || normalized.includes("invalid")) {
+    return "Please enter a valid Solana token address.";
+  }
+
+  return "The report is not available right now. Please try again.";
+}
+
 export default async function AnalyzePage({ searchParams }: AnalyzePageProps) {
   const params = await searchParams;
   const token = params.token?.trim();
@@ -37,7 +51,7 @@ export default async function AnalyzePage({ searchParams }: AnalyzePageProps) {
   try {
     result = await analyzeTokenAddress(token);
   } catch (error) {
-    errorMessage = error instanceof Error ? error.message : "Unknown analysis error.";
+    errorMessage = getFriendlyAnalyzeError(error instanceof Error ? error.message : undefined);
   }
 
   if (!result) {

@@ -1,3 +1,5 @@
+import { Ollama } from "ollama";
+
 import type {
   BehaviorAnalysis,
   ContextAnalysis,
@@ -6,14 +8,9 @@ import type {
   TokenOverview,
 } from "@/lib/types/token-analysis";
 
-const DEFAULT_OLLAMA_BASE_URL = "http://127.0.0.1:11434";
-const DEFAULT_OLLAMA_MODEL = "qwen2.5:3b";
+const DEFAULT_OLLAMA_BASE_URL = "https://ollama.com";
+const DEFAULT_OLLAMA_MODEL = "deepseek-v4-flash:cloud";
 const DEFAULT_OLLAMA_TIMEOUT_MS = 15000;
-
-type OllamaGenerateResponse = {
-  response?: string;
-  done?: boolean;
-};
 
 type OllamaContextPayload = {
   aiSummary: string;
@@ -25,6 +22,7 @@ type OllamaContextPayload = {
 function getOllamaConfig() {
   return {
     baseUrl: process.env.OLLAMA_BASE_URL?.trim() || DEFAULT_OLLAMA_BASE_URL,
+    apiKey: process.env.OLLAMA_API_KEY?.trim() || "",
     model: process.env.OLLAMA_MODEL?.trim() || DEFAULT_OLLAMA_MODEL,
     timeoutMs: Number(process.env.OLLAMA_TIMEOUT_MS ?? DEFAULT_OLLAMA_TIMEOUT_MS),
   };
@@ -79,59 +77,66 @@ export async function generateOllamaContextAnalysis(input: {
   signals: SignalAnalysis;
   dataQualityNotes: string[];
 }) {
-  const { baseUrl, model, timeoutMs } = getOllamaConfig();
+  const { baseUrl, apiKey, model, timeoutMs } = getOllamaConfig();
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  const ollama = new Ollama({
+    host: baseUrl,
+    fetch: (url, init) => fetch(url, { ...init, signal: controller.signal }),
+    headers: apiKey
+      ? {
+          Authorization: `Bearer ${apiKey}`,
+        }
+      : undefined,
+  });
 
   try {
-    const response = await fetch(`${baseUrl}/api/generate`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model,
-        stream: false,
-        system:
-          "You are OMENA Context Intelligence. Produce cautious token analysis only. Never give buy, sell, moon, 100x, profit, or financial-advice language. Keep the tone minimal, credible, and plain English.",
-        prompt:
-          "Turn the following token analysis payload into a JSON object for OMENA. Return only valid JSON matching the provided schema. Mention partial data when needed and stay conservative.\n\n" +
-          buildPrompt(input),
-        format: {
-          type: "object",
-          properties: {
-            aiSummary: { type: "string" },
-            finalVerdict: { type: "string" },
-            cautionLevel: { type: "string", enum: ["Low", "Medium", "High"] },
-            reportSections: {
-              type: "array",
-              items: { type: "string" },
-              minItems: 3,
-              maxItems: 5,
-            },
+    const response = await ollama.chat({
+      model,
+      stream: false,
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are OMENA Context Intelligence. Produce cautious token analysis only. Never give buy, sell, moon, 100x, profit, or financial-advice language. Keep the tone minimal, credible, and plain English.",
+        },
+        {
+          role: "user",
+          content:
+            "Turn the following token analysis payload into a JSON object for OMENA. Return only valid JSON matching the provided schema. Mention partial data when needed and stay conservative.\n\n" +
+            buildPrompt(input),
+        },
+      ],
+      format: {
+        type: "object",
+        properties: {
+          aiSummary: { type: "string" },
+          finalVerdict: { type: "string" },
+          cautionLevel: { type: "string", enum: ["Low", "Medium", "High"] },
+          reportSections: {
+            type: "array",
+            items: { type: "string" },
+            minItems: 3,
+            maxItems: 5,
           },
-          required: ["aiSummary", "finalVerdict", "cautionLevel", "reportSections"],
         },
-        options: {
-          temperature: 0.2,
-        },
-        keep_alive: "5m",
-      }),
-      signal: controller.signal,
+        required: ["aiSummary", "finalVerdict", "cautionLevel", "reportSections"],
+      },
+      options: {
+        temperature: 0.2,
+      },
+      keep_alive: "5m",
     });
 
-    if (!response.ok) {
-      throw new Error(`Ollama request failed: ${response.status}`);
+    const content = response.message?.content?.trim();
+
+    if (!content) {
+      throw new Error("Ollama returned an empty response.");
     }
 
-    const payload = (await response.json()) as OllamaGenerateResponse;
-
-    if (!payload.response || payload.done === false) {
-      throw new Error("Ollama returned an incomplete response.");
-    }
-
-    return parseStructuredResponse(payload.response);
+    return parseStructuredResponse(content);
   } finally {
     clearTimeout(timeoutId);
   }
 }
+

@@ -1,11 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrainCircuit, Database, ShieldAlert, Terminal, ArrowUpRight, ArrowDownRight, ArrowRight } from "lucide-react";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Eyebrow, Heading, Subheading } from "@/components/ui/Typography";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+
+type LandingCoin = {
+  id: string;
+  name: string;
+  symbol: string;
+  priceUsd: number | null;
+  status: "live" | "fallback";
+};
 
 const mockTransactions = [
   { name: "Michael Johnson", time: "Received, May 10 4:44 PM", amount: "+$2050.10", type: "up" },
@@ -13,17 +21,61 @@ const mockTransactions = [
   { name: "Sophia Jackson", time: "Received, May 10 10:10 PM", amount: "+$810.90", type: "up" },
 ];
 
-const mockCoins = [
-  { name: "Solana", symbol: "SOL", price: "$142.50", status: "online" },
-  { name: "Ethereum", symbol: "ETH", price: "$3,450.00", status: "online" },
-  { name: "Raydium", symbol: "RAY", price: "$1.85", status: "online" },
-  { name: "Orca", symbol: "ORCA", price: "$2.90", status: "online" },
+const fallbackCoins: LandingCoin[] = [
+  { id: "solana", name: "Solana", symbol: "SOL", priceUsd: 142.5, status: "fallback" },
+  { id: "ethereum", name: "Ethereum", symbol: "ETH", priceUsd: 3450, status: "fallback" },
+  { id: "raydium", name: "Raydium", symbol: "RAY", priceUsd: 1.85, status: "fallback" },
+  { id: "orca", name: "Orca", symbol: "ORCA", priceUsd: 2.9, status: "fallback" },
 ];
 
+function formatPrice(priceUsd: number | null) {
+  if (priceUsd === null) {
+    return "Unavailable";
+  }
+
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: priceUsd >= 100 ? 2 : priceUsd >= 1 ? 2 : 4,
+    maximumFractionDigits: priceUsd >= 100 ? 2 : priceUsd >= 1 ? 2 : 4,
+  }).format(priceUsd);
+}
+
 export function BentoGrid() {
+  const [coins, setCoins] = useState<LandingCoin[]>(fallbackCoins);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadPrices() {
+      try {
+        const response = await fetch("/api/market/landing-prices", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          return;
+        }
+
+        const payload = (await response.json()) as { prices?: LandingCoin[] };
+
+        if (active && Array.isArray(payload.prices) && payload.prices.length > 0) {
+          setCoins(payload.prices);
+        }
+      } catch {
+        // Keep fallback prices on failure.
+      }
+    }
+
+    void loadPrices();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <section className="framer-animate max-w-[1200px] mx-auto px-6 py-12">
-      {/* Headings */}
       <div className="mb-12 text-left">
         <Eyebrow>EFFORTLESS FINANCE</Eyebrow>
         <Heading as="h2" size="section" className="font-black text-foreground leading-[1.3] text-balance">
@@ -40,12 +92,8 @@ export function BentoGrid() {
         </Subheading>
       </div>
 
-      {/* Bento Grid */}
       <div className="grid md:grid-cols-3 gap-6">
-        
-        {/* Large Card: Intelligence Engine */}
         <SpotlightCard className="md:col-span-2 hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between bg-card p-6 md:p-8 lg:p-10 min-h-[360px]">
-          {/* Header Row */}
           <div className="flex justify-between items-center w-full">
             <div className="bg-primary/10 p-2.5 rounded-xl">
               <BrainCircuit className="text-primary w-6 h-6" />
@@ -55,7 +103,6 @@ export function BentoGrid() {
             </span>
           </div>
 
-          {/* Grid Content */}
           <div className="grid md:grid-cols-12 gap-8 items-center mt-6 flex-grow">
             <div className="md:col-span-7 flex flex-col justify-center space-y-3">
               <h3 className="text-lg md:text-xl font-black text-foreground tracking-tight">
@@ -64,16 +111,15 @@ export function BentoGrid() {
               <p className="text-xs md:text-sm leading-relaxed text-muted-foreground/85 font-medium">
                 Our core proprietary engine that processes raw transaction data through machine learning models to output structured, risk-scored insights specifically formatted for autonomous agent consumption.
               </p>
-              
+
               <div className="pt-2">
                 <Link href="#" className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-primary transition-colors hover:text-[#1f4de0] group/link">
-                  Learn more 
+                  Learn more
                   <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
                 </Link>
               </div>
             </div>
 
-            {/* In-card visual: Transaction log using soft panels */}
             <div className="md:col-span-5 space-y-2 p-4 rounded-2xl bg-muted/30 shadow-inner">
               {mockTransactions.map((tx) => (
                 <div
@@ -99,7 +145,6 @@ export function BentoGrid() {
           </div>
         </SpotlightCard>
 
-        {/* Medium Card 1: Data Indexer */}
         <SpotlightCard className="hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between bg-card p-6 md:p-8 min-h-[360px]">
           <div>
             <div className="bg-primary/10 p-2.5 rounded-xl inline-block w-fit mb-5">
@@ -112,30 +157,30 @@ export function BentoGrid() {
           </div>
 
           <div className="space-y-2 mt-6">
-            {mockCoins.map((coin) => (
+            {coins.map((coin) => (
               <div
-                key={coin.name}
+                key={coin.id}
                 className="flex items-center justify-between text-xs p-2.5 bg-muted/30 rounded-xl transition-colors"
               >
                 <span className="flex items-center gap-2 font-bold text-foreground text-[11px]">
                   <span className="flex w-6 h-6 items-center justify-center rounded-lg bg-muted/40 shadow-sm shrink-0 overflow-hidden">
-                    <Icon 
+                    <Icon
                       icon={
                         coin.symbol === "SOL" ? "cryptocurrency-color:sol" :
                         coin.symbol === "ETH" ? "cryptocurrency-color:eth" :
                         coin.symbol === "RAY" ? "token-branded:ray" :
                         coin.symbol === "ORCA" ? "token-branded:orca" : "cryptocurrency-color:sol"
-                      } 
-                      className="w-4 h-4" 
+                      }
+                      className="w-4 h-4"
                     />
                   </span>
                   {coin.name}
                 </span>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-muted-foreground text-[10px]">{coin.price}</span>
+                  <span className="font-bold text-muted-foreground text-[10px]">{formatPrice(coin.priceUsd)}</span>
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    <span className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${coin.status === "live" ? "animate-ping bg-emerald-400" : "bg-amber-400"}`}></span>
+                    <span className={`relative inline-flex rounded-full h-2 w-2 ${coin.status === "live" ? "bg-emerald-500" : "bg-amber-500"}`}></span>
                   </span>
                 </div>
               </div>
@@ -143,7 +188,6 @@ export function BentoGrid() {
           </div>
         </SpotlightCard>
 
-        {/* Medium Card 2: Risk Assessment Protocol */}
         <SpotlightCard className="hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between bg-card p-6 md:p-8 min-h-[360px]">
           <div>
             <div className="bg-primary/10 p-2.5 rounded-xl inline-block w-fit mb-5">
@@ -155,7 +199,6 @@ export function BentoGrid() {
             </p>
           </div>
 
-          {/* Premium Visual: Animated Security Scans Checklist */}
           <div className="mt-6 space-y-2 p-3 rounded-2xl bg-muted/30">
             <div className="flex items-center justify-between text-[10px] p-2 bg-primary/5 rounded-xl transition-all hover:scale-[1.02] duration-300">
               <span className="font-bold text-emerald-800 flex items-center gap-1.5 uppercase tracking-wide">
@@ -181,12 +224,10 @@ export function BentoGrid() {
           </div>
         </SpotlightCard>
 
-        {/* Large Card 2: API First Interface */}
-        <SpotlightCard 
-          spotlightColor="rgba(255,255,255,0.03)" 
+        <SpotlightCard
+          spotlightColor="rgba(255,255,255,0.03)"
           className="md:col-span-2 bg-inverse-surface hover:-translate-y-1 transition-all duration-300 text-inverse-on-surface flex flex-col justify-between p-6 md:p-8 lg:p-10 min-h-[360px] relative"
         >
-          {/* Header Row */}
           <div className="flex justify-between items-center w-full">
             <div className="bg-white/5 p-2.5 rounded-xl">
               <Terminal className="text-primary w-5 h-5" />
@@ -196,7 +237,6 @@ export function BentoGrid() {
             </span>
           </div>
 
-          {/* Grid Content */}
           <div className="grid md:grid-cols-12 gap-8 items-center mt-6 flex-grow">
             <div className="md:col-span-6 flex flex-col justify-center space-y-3">
               <h3 className="text-lg md:text-xl font-black text-inverse-on-surface tracking-tight">
@@ -205,16 +245,15 @@ export function BentoGrid() {
               <p className="text-xs md:text-sm leading-relaxed text-zinc-400 font-medium">
                 Sub-second latency indexing of multiple chains. Fully typed REST &amp; WebSocket streams built for autonomous agent consumption.
               </p>
-              
+
               <div className="pt-2">
                 <Link href="#" className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:text-blue-400 transition-colors uppercase tracking-wider group/link">
-                  Read API Docs 
+                  Read API Docs
                   <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
                 </Link>
               </div>
             </div>
-            
-            {/* Terminal Mock in Card */}
+
             <div className="md:col-span-6 rounded-xl bg-background/10 p-4 font-code-md text-[10px] text-inverse-on-surface/75 shadow-2xl backdrop-blur-md relative overflow-hidden">
               <div className="flex items-center gap-1.5 mb-3 pb-2">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
@@ -241,7 +280,6 @@ export function BentoGrid() {
             </div>
           </div>
         </SpotlightCard>
-
       </div>
     </section>
   );
