@@ -7,13 +7,34 @@ import { nextCookies } from "better-auth/next-js";
 const DEFAULT_BETTER_AUTH_URL = "http://localhost:3000";
 const DEFAULT_AUTH_DB_PATH = path.join(process.cwd(), "data", "auth.sqlite");
 const BUILD_FALLBACK_SECRET = crypto.randomBytes(32).toString("hex");
+const isProduction = process.env.NODE_ENV === "production";
 
 function getBetterAuthSecret() {
-  return process.env.BETTER_AUTH_SECRET?.trim() || process.env.AUTH_SESSION_SECRET?.trim() || BUILD_FALLBACK_SECRET;
+  const secret = process.env.BETTER_AUTH_SECRET?.trim() || process.env.AUTH_SESSION_SECRET?.trim();
+
+  if (secret) {
+    return secret;
+  }
+
+  if (isProduction) {
+    throw new Error("BETTER_AUTH_SECRET or AUTH_SESSION_SECRET must be set in production.");
+  }
+
+  return BUILD_FALLBACK_SECRET;
 }
 
 function getBetterAuthBaseUrl() {
-  return process.env.BETTER_AUTH_URL?.trim() || DEFAULT_BETTER_AUTH_URL;
+  const baseUrl = process.env.BETTER_AUTH_URL?.trim();
+
+  if (baseUrl) {
+    return baseUrl;
+  }
+
+  if (isProduction) {
+    throw new Error("BETTER_AUTH_URL must be set in production.");
+  }
+
+  return DEFAULT_BETTER_AUTH_URL;
 }
 
 function createDatabase() {
