@@ -39,7 +39,7 @@ export default async function AnalyzePage({ searchParams }: AnalyzePageProps) {
   if (!token) {
     return (
       <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-6 py-10 md:py-14">
-        <TokenInputForm />
+        <TokenInputForm showHeader={false} />
         <EmptyAnalyzeState />
       </div>
     );
@@ -57,7 +57,7 @@ export default async function AnalyzePage({ searchParams }: AnalyzePageProps) {
   if (!result) {
     return (
       <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-8 px-6 py-10 md:py-14">
-        <TokenInputForm defaultValue={token} />
+        <TokenInputForm defaultValue={token} showHeader={false} />
         <ErrorAnalyzeState message={errorMessage} />
       </div>
     );
@@ -65,7 +65,7 @@ export default async function AnalyzePage({ searchParams }: AnalyzePageProps) {
 
   return (
     <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-6 px-6 py-10 md:py-14">
-      <TokenInputForm defaultValue={token} />
+      <TokenInputForm defaultValue={token} showHeader={false} />
       <InsufficientDataBanner reasons={result.meta.insufficientDataReasons} />
       <TokenOverviewCard result={result} />
       <div className="grid gap-6 xl:grid-cols-2">

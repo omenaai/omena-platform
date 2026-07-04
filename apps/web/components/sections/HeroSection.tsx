@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
-import { Activity, ArrowRight, DatabaseZap, Waves } from "lucide-react";
+import React, { useState } from "react";
+import { Activity, ArrowRight, Check, Copy, DatabaseZap, Waves } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
+const contractAddress = "JB5j3umqLKMfbgPsb7ZyQE6smqJ3v1RhxwdSh2Wppump";
 
 const railItems = [
   {
@@ -27,6 +29,14 @@ const railItems = [
 ];
 
 export function HeroSection() {
+  const [copied, setCopied] = useState(false);
+
+  const copyContractAddress = async () => {
+    await navigator.clipboard.writeText(contractAddress);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+  };
+
   return (
     <section className="flex w-full flex-col justify-between overflow-hidden bg-grid-pattern lg:min-h-[calc(100vh-104px)]">
       <div className="mx-auto grid w-full max-w-[1200px] flex-1 items-center gap-12 px-6 py-16 text-left md:py-24 lg:grid-cols-12 lg:py-24">
@@ -69,6 +79,23 @@ export function HeroSection() {
             >
               Read Litepaper
             </Link>
+          </div>
+
+          <div className="flex flex-col gap-2 rounded-[28px] border border-border bg-card/80 p-4 shadow-sm backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-primary">CA</p>
+              <p className="mt-2 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-xs font-semibold text-foreground sm:text-sm">
+                {contractAddress}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={copyContractAddress}
+              className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-5 text-[11px] font-black uppercase tracking-[0.18em] text-primary-foreground transition-transform hover:scale-[0.99] active:scale-[0.97]"
+            >
+              {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+              {copied ? "Copied" : "Copy CA"}
+            </button>
           </div>
         </div>
 

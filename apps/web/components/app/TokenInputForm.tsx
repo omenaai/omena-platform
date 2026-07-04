@@ -9,9 +9,10 @@ import { demoTokenAddress } from "@/lib/intelligence/mock-analysis";
 
 type TokenInputFormProps = {
   defaultValue?: string;
+  showHeader?: boolean;
 };
 
-export function TokenInputForm({ defaultValue = "" }: TokenInputFormProps) {
+export function TokenInputForm({ defaultValue = "", showHeader = true }: TokenInputFormProps) {
   const [value, setValue] = useState(defaultValue);
   const [error, setError] = useState("");
   const [isPending, startTransition] = useTransition();
@@ -33,14 +34,16 @@ export function TokenInputForm({ defaultValue = "" }: TokenInputFormProps) {
 
   return (
     <div className="rounded-[24px] border border-border/70 bg-background/72 p-4 sm:p-5">
-      <div className="mb-4 space-y-1.5">
-        <h2 className="font-display text-xl font-black tracking-[-0.05em] text-foreground sm:text-2xl">
-          Analyze a Solana token
-        </h2>
-        <p className="max-w-2xl text-sm font-medium leading-6 text-muted-foreground">
-          Risk, behavior, signal, and context in one report.
-        </p>
-      </div>
+      {showHeader ? (
+        <div className="mb-4 space-y-1.5">
+          <h2 className="font-display text-xl font-black tracking-[-0.05em] text-foreground sm:text-2xl">
+            Analyze a Solana token
+          </h2>
+          <p className="max-w-2xl text-sm font-medium leading-6 text-muted-foreground">
+            Risk, behavior, signal, and context in one report.
+          </p>
+        </div>
+      ) : null}
 
       <form
         onSubmit={(event) => {

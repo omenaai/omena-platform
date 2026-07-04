@@ -31,7 +31,8 @@ function getFriendlyReason(reason: string) {
   const normalized = reason.toLowerCase();
 
   if (normalized.includes("ollama") || normalized.includes("context")) {
-    return "AI summary is using fallback mode right now.";
+    const detail = reason.split(":").slice(1).join(":").trim();
+    return detail ? "AI summary is using fallback mode right now. Error: " + detail : "AI summary is using fallback mode right now.";
   }
 
   if (normalized.includes("helius") || normalized.includes("onchain")) {
@@ -296,3 +297,4 @@ export function InsufficientDataBanner({ reasons }: { reasons: string[] }) {
     </div>
   );
 }
+

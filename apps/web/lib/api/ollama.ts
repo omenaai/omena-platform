@@ -2,22 +2,14 @@ import { Ollama } from "ollama";
 
 import type {
   BehaviorAnalysis,
-  ContextAnalysis,
   RiskAnalysis,
   SignalAnalysis,
   TokenOverview,
 } from "@/lib/types/token-analysis";
 
-const DEFAULT_OLLAMA_BASE_URL = "https://ollama.com";
-const DEFAULT_OLLAMA_MODEL = "deepseek-v4-flash:cloud";
+const DEFAULT_OLLAMA_BASE_URL = "http://127.0.0.1:11434";
+const DEFAULT_OLLAMA_MODEL = "qwen2.5:3b";
 const DEFAULT_OLLAMA_TIMEOUT_MS = 15000;
-
-type OllamaContextPayload = {
-  aiSummary: string;
-  finalVerdict: string;
-  cautionLevel: "Low" | "Medium" | "High";
-  reportSections: string[];
-};
 
 function getOllamaConfig() {
   return {
@@ -48,29 +40,27 @@ function buildPrompt(input: {
   );
 }
 
-function parseStructuredResponse(raw: string): ContextAnalysis {
-  const trimmed = raw.trim();
-  const candidate = trimmed.startsWith("{") ? trimmed : trimmed.slice(trimmed.indexOf("{"), trimmed.lastIndexOf("}") + 1);
-  const parsed = JSON.parse(candidate) as OllamaContextPayload;
-
-  if (
-    typeof parsed.aiSummary !== "string" ||
-    typeof parsed.finalVerdict !== "string" ||
-    !["Low", "Medium", "High"].includes(parsed.cautionLevel) ||
-    !Array.isArray(parsed.reportSections)
-  ) {
-    throw new Error("Ollama returned an invalid structured report.");
-  }
-
-  return {
-    aiSummary: parsed.aiSummary.trim(),
-    finalVerdict: parsed.finalVerdict.trim(),
-    cautionLevel: parsed.cautionLevel,
-    reportSections: parsed.reportSections.map((section) => String(section).trim()).filter(Boolean).slice(0, 5),
-  };
+function getSystemPrompt() {
+  return "You are OMENA Context Intelligence. Produce cautious token analysis only. Never give buy, sell, moon, 100x, profit, or financial-advice language. Keep the tone minimal, credible, and plain English.";
 }
 
-export async function generateOllamaContextAnalysis(input: {
+function parseSummaryResponse(raw: string): string {
+  const summary = raw.trim();
+
+  if (!summary) {
+    throw new Error("Ollama returned an invalid AI summary: response was empty.");
+  }
+
+  const summaryWithoutCodeFence = summary.replace(/^```(?:text|markdown|json)?\s*/i, "").replace(/\s*```$/, "").trim();
+
+  if (!summaryWithoutCodeFence) {
+    throw new Error("Ollama returned an invalid AI summary: response was empty.");
+  }
+
+  return summaryWithoutCodeFence;
+}
+
+export async function generateOllamaContextSummary(input: {
   token: TokenOverview;
   risk: RiskAnalysis;
   behavior: BehaviorAnalysis;
@@ -97,31 +87,15 @@ export async function generateOllamaContextAnalysis(input: {
       messages: [
         {
           role: "system",
-          content:
-            "You are OMENA Context Intelligence. Produce cautious token analysis only. Never give buy, sell, moon, 100x, profit, or financial-advice language. Keep the tone minimal, credible, and plain English.",
+          content: getSystemPrompt(),
         },
         {
           role: "user",
           content:
-            "Turn the following token analysis payload into a JSON object for OMENA. Return only valid JSON matching the provided schema. Mention partial data when needed and stay conservative.\n\n" +
+            "Write only a short OMENA aiSummary in plain English for the following token analysis payload. Keep it to 2 or 3 sentences, mention partial data when needed, and do not use markdown or JSON.\n\n" +
             buildPrompt(input),
         },
       ],
-      format: {
-        type: "object",
-        properties: {
-          aiSummary: { type: "string" },
-          finalVerdict: { type: "string" },
-          cautionLevel: { type: "string", enum: ["Low", "Medium", "High"] },
-          reportSections: {
-            type: "array",
-            items: { type: "string" },
-            minItems: 3,
-            maxItems: 5,
-          },
-        },
-        required: ["aiSummary", "finalVerdict", "cautionLevel", "reportSections"],
-      },
       options: {
         temperature: 0.2,
       },
@@ -134,9 +108,8 @@ export async function generateOllamaContextAnalysis(input: {
       throw new Error("Ollama returned an empty response.");
     }
 
-    return parseStructuredResponse(content);
+    return parseSummaryResponse(content);
   } finally {
     clearTimeout(timeoutId);
   }
 }
-

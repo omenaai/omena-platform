@@ -1,6 +1,6 @@
 import { fetchDexScreenerPairs, pickPrimaryPair } from "@/lib/api/dexscreener";
 import { fetchHeliusBehaviorSnapshot } from "@/lib/api/helius";
-import { generateOllamaContextAnalysis } from "@/lib/api/ollama";
+import { generateOllamaContextSummary } from "@/lib/api/ollama";
 import { buildBehaviorAnalysis } from "@/lib/intelligence/behavior";
 import { buildContextAnalysis } from "@/lib/intelligence/context";
 import { createMockAnalysis } from "@/lib/intelligence/mock-analysis";
@@ -89,13 +89,17 @@ export async function analyzeTokenAddress(
     let contextCoverage: TokenAnalysisResult["meta"]["coverage"]["context"] = "partial";
 
     try {
-      context = await generateOllamaContextAnalysis({
+      const aiSummary = await generateOllamaContextSummary({
         token,
         risk,
         behavior,
         signals,
         dataQualityNotes: insufficientDataReasons,
       });
+      context = {
+        ...ruleBasedContext,
+        aiSummary,
+      };
       contextSource = "ollama";
       contextCoverage = "complete";
     } catch (error) {
@@ -161,3 +165,4 @@ export async function analyzeTokenAddress(
     };
   }
 }
+
