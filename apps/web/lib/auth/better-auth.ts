@@ -4,7 +4,7 @@ import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { getMigrations } from "better-auth/db/migration";
 import { nextCookies } from "better-auth/next-js";
 
-const DEFAULT_BETTER_AUTH_URL = "http://localhost:3001";
+const DEFAULT_BETTER_AUTH_URL = "http://localhost:3000";
 const DEFAULT_AUTH_DB_PATH = path.join(process.cwd(), "data", "auth.sqlite");
 const BUILD_FALLBACK_SECRET = crypto.randomBytes(32).toString("hex");
 
@@ -18,12 +18,12 @@ function getBetterAuthBaseUrl() {
 
 function createDatabase() {
   if (process.env.DATABASE_URL) {
-    // PostgreSQL — used in production (EC2 / Docker)
+    // PostgreSQL - used in production (EC2 / Docker)
     const { Pool } = require("pg") as typeof import("pg");
     return new Pool({ connectionString: process.env.DATABASE_URL });
   }
 
-  // SQLite — used in local development
+  // SQLite - used in local development
   const fs = require("node:fs") as typeof import("fs");
   const Database = require("better-sqlite3") as typeof import("better-sqlite3");
   const dbPath = process.env.AUTH_DB_PATH?.trim() || DEFAULT_AUTH_DB_PATH;
