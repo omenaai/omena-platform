@@ -1,73 +1,66 @@
 import Link from "next/link";
 import Image from "next/image";
-import { redirect } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import { WalletSignInCard } from "@/components/auth/WalletSignInCard";
-import { getRequestSession } from "@/lib/auth/session";
+import { ArrowLeft, Clock3 } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
 
-export default async function AuthPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ next?: string }>;
-}) {
-  const session = await getRequestSession();
-  const params = await searchParams;
-  const nextPath = params.next?.startsWith("/") ? params.next : "/app";
-
-  if (session) {
-    redirect(nextPath);
-  }
-
+export default async function AuthPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground flex">
-      {/* Left panel — branding */}
-      <div className="hidden lg:flex lg:w-[420px] shrink-0 flex-col justify-between border-r border-border px-10 py-12">
-        <Link href="/" aria-label="OMENA home">
-          <Image src="/logo.png" alt="OMENA" width={120} height={32} className="h-8 w-auto object-contain" priority />
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <header className="flex items-center justify-between px-8 py-6 lg:px-12">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ArrowLeft className="h-3 w-3" />
+          Back
         </Link>
 
-        <div className="space-y-5">
-          <p className="text-[10px] font-black uppercase tracking-[0.26em] text-primary">
-            Agent Intelligence Layer
+        <Link href="/" aria-label="OMENA home">
+          <Image
+            src="/logo.png"
+            alt="OMENA"
+            width={40}
+            height={40}
+            className="h-10 w-10 object-contain"
+            priority
+          />
+        </Link>
+      </header>
+
+      <main className="flex flex-1 items-center justify-center px-8 py-10">
+        <div className="w-full max-w-xl rounded-[28px] border border-border/70 bg-card/92 p-8 text-center shadow-[var(--shadow-ambient)]">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            <Clock3 className="h-5 w-5" />
+          </div>
+          <Badge className="mt-5 bg-primary/10 text-primary">Temporarily Closed</Badge>
+          <h1 className="mt-4 font-display text-3xl font-black tracking-[-0.05em] text-foreground">
+            Sign in and sign up are paused for now.
+          </h1>
+          <p className="mt-3 text-sm font-medium leading-7 text-muted-foreground">
+            We are focusing on the landing page first. Access to the dashboard will be reopened after the next release.
           </p>
-          <h2 className="font-display text-4xl font-black leading-[0.95] tracking-[-0.06em] text-foreground">
-            Real-time<br />onchain<br />intelligence.
-          </h2>
-          <p className="text-sm font-medium leading-7 text-muted-foreground max-w-[240px]">
-            Risk analysis, wallet intelligence, and actionable signals for AI agents.
-          </p>
-        </div>
-
-        <p className="text-[10px] font-medium text-muted-foreground/60 tracking-wide">
-          © {new Date().getFullYear()} OMENA AI
-        </p>
-      </div>
-
-      {/* Right panel — form */}
-      <div className="flex-1 flex flex-col min-h-screen">
-        {/* Top bar */}
-        <div className="flex items-center justify-between px-8 py-6 lg:px-12">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="h-3 w-3" />
-            Back
-          </Link>
-
-          {/* Logo — top right */}
-          <Link href="/" aria-label="OMENA home">
-            <Image src="/logo.png" alt="OMENA" width={100} height={28} className="h-7 w-auto object-contain" priority />
-          </Link>
-        </div>
-
-        {/* Form centered */}
-        <div className="flex-1 flex items-center justify-center px-8 py-10">
-          <div className="w-full max-w-[360px]">
-            <WalletSignInCard nextPath={nextPath} />
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <Link
+              href="/docs"
+              className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-xs font-black uppercase tracking-[0.18em] text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              Explore Docs
+            </Link>
+            <Link
+              href="/roadmap"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-border bg-background px-5 text-xs font-black uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-muted"
+            >
+              View Roadmap
+            </Link>
           </div>
         </div>
-      </div>
+      </main>
+
+      <footer className="px-8 py-6 text-center lg:px-12">
+        <p className="text-[10px] font-medium tracking-wide text-muted-foreground/50">
+          � {new Date().getFullYear()} OMENA AI
+        </p>
+      </footer>
     </div>
   );
 }

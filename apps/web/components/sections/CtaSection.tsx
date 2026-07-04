@@ -19,16 +19,13 @@ export function CtaSection() {
           </span>
         </Heading>
         <Subheading className="max-w-2xl text-center font-medium text-primary-foreground/88">
-          Start with the Token Analyzer dashboard, then move into the docs and product direction.
+          The dashboard access is temporarily paused while we focus on the landing page and product direction.
         </Subheading>
 
         <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:justify-center">
-          <Link
-            href="/auth?next=/app"
-            className={cn(buttonVariants({ size: "lg" }), "min-w-52 bg-background text-primary hover:bg-background/92")}
-          >
-            Open Dashboard
-          </Link>
+          <span className="inline-flex min-w-52 items-center justify-center rounded-full border border-white/16 bg-white/10 px-5 py-3 text-sm font-black uppercase tracking-[0.18em] text-primary-foreground/80">
+            Dashboard Coming Soon
+          </span>
           <Link
             href="/docs"
             className={cn(

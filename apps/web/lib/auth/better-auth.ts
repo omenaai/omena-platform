@@ -1,7 +1,5 @@
 import crypto from "node:crypto";
-import fs from "node:fs";
 import path from "node:path";
-import Database from "better-sqlite3";
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { getMigrations } from "better-auth/db/migration";
 import { nextCookies } from "better-auth/next-js";
@@ -18,14 +16,22 @@ function getBetterAuthBaseUrl() {
   return process.env.BETTER_AUTH_URL?.trim() || DEFAULT_BETTER_AUTH_URL;
 }
 
-function getAuthDbPath() {
-  return process.env.AUTH_DB_PATH?.trim() || DEFAULT_AUTH_DB_PATH;
+function createDatabase() {
+  if (process.env.DATABASE_URL) {
+    // PostgreSQL — used in production (EC2 / Docker)
+    const { Pool } = require("pg") as typeof import("pg");
+    return new Pool({ connectionString: process.env.DATABASE_URL });
+  }
+
+  // SQLite — used in local development
+  const fs = require("node:fs") as typeof import("fs");
+  const Database = require("better-sqlite3") as typeof import("better-sqlite3");
+  const dbPath = process.env.AUTH_DB_PATH?.trim() || DEFAULT_AUTH_DB_PATH;
+  fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+  return new Database(dbPath);
 }
 
-const authDbPath = getAuthDbPath();
-fs.mkdirSync(path.dirname(authDbPath), { recursive: true });
-
-const database = new Database(authDbPath);
+const database = createDatabase();
 
 const betterAuthOptions: BetterAuthOptions = {
   database,

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowUpRight, GitBranch, LogIn, Menu, X } from "lucide-react";
+import { GitBranch, Menu, X } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const navLinks = [
 ];
 
 const announcements = [
-  "UNLOCKED 50+ REAL-TIME WEB3 DATA STREAMS â€¢ OMENA RESEARCH LITERATION V1.0 IS NOW LIVE â€¢ TRANSFORMING ONCHAIN DATA INTO INTELLIGENCE",
+  "UNLOCKED 50+ REAL-TIME WEB3 DATA STREAMS • OMENA RESEARCH LITERATION V1.0 IS NOW LIVE • TRANSFORMING ONCHAIN DATA INTO INTELLIGENCE",
 ];
 
 export function Navbar() {
@@ -83,13 +83,9 @@ export function Navbar() {
             <RiTwitterXFill className="h-4 w-4" />
           </Link>
 
-          <Link
-            href="/auth"
-            className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-background transition-colors hover:bg-primary"
-          >
-            <span>Sign In</span>
-            <LogIn className="h-3.5 w-3.5" />
-          </Link>
+          <span className="inline-flex items-center rounded-full border border-border bg-muted px-3.5 py-2 text-[10px] font-black uppercase tracking-wider text-muted-foreground">
+            Sign In Soon
+          </span>
         </div>
 
         <div className="flex items-center justify-end lg:hidden">
@@ -130,14 +126,9 @@ export function Navbar() {
               </Link>
             ))}
           </div>
-          <Link
-            href="/auth"
-            onClick={() => setIsOpen(false)}
-            className="flex h-10 w-full items-center justify-center gap-1.5 rounded-full bg-primary text-xs font-black uppercase tracking-wider text-primary-foreground transition-colors hover:bg-primary/85"
-          >
-            <span>Sign In</span>
-            <LogIn className="h-4 w-4" />
-          </Link>
+          <div className="flex h-10 w-full items-center justify-center rounded-full border border-border bg-muted text-xs font-black uppercase tracking-wider text-muted-foreground">
+            Sign In Soon
+          </div>
           <div className="grid grid-cols-2 gap-2">
             <Link
               href={siteConfig.social.github}
@@ -167,4 +158,3 @@ export function Navbar() {
     </header>
   );
 }
-

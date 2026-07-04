@@ -32,14 +32,13 @@ export function TokenInputForm({ defaultValue = "" }: TokenInputFormProps) {
   };
 
   return (
-    <div className="rounded-[32px] border border-border bg-card/95 p-5 shadow-[0_24px_60px_rgba(8,18,37,0.08)] sm:p-6">
-      <div className="mb-5 space-y-2">
-        <p className="text-[10px] font-black uppercase tracking-[0.22em] text-primary">Token Analyzer</p>
-        <h2 className="font-display text-2xl font-black tracking-[-0.05em] text-foreground sm:text-3xl">
-          Paste a Solana token address to generate an OMENA report.
+    <div className="rounded-[24px] border border-border/70 bg-background/72 p-4 sm:p-5">
+      <div className="mb-4 space-y-1.5">
+        <h2 className="font-display text-xl font-black tracking-[-0.05em] text-foreground sm:text-2xl">
+          Analyze a Solana token
         </h2>
         <p className="max-w-2xl text-sm font-medium leading-6 text-muted-foreground">
-          Risk, behavior, signals, and context intelligence are grouped into one clear report. No trading advice.
+          Risk, behavior, signal, and context in one report.
         </p>
       </div>
 
@@ -56,10 +55,10 @@ export function TokenInputForm({ defaultValue = "" }: TokenInputFormProps) {
           setError("");
           submit(result.value);
         }}
-        className="space-y-4"
+        className="space-y-3"
       >
         <div className="flex flex-col gap-3 lg:flex-row">
-          <label className="flex min-h-14 flex-1 items-center gap-3 rounded-full border border-border bg-background px-5 shadow-sm transition-colors focus-within:border-primary/40">
+          <label className="flex min-h-12 flex-1 items-center gap-3 rounded-[18px] border border-border/70 bg-card px-4 transition-colors focus-within:border-primary/40 focus-within:ring-4 focus-within:ring-primary/10">
             <Search className="h-4 w-4 text-primary" />
             <input
               value={value}
@@ -72,9 +71,9 @@ export function TokenInputForm({ defaultValue = "" }: TokenInputFormProps) {
             />
           </label>
 
-          <Button type="submit" size="lg" className="min-w-44 text-[11px] font-black uppercase tracking-[0.18em]" disabled={isPending}>
+          <Button type="submit" size="lg" className="min-w-40 rounded-[18px] text-[11px] font-black uppercase tracking-[0.18em]" disabled={isPending}>
             {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-            Analyze Token
+            Analyze
           </Button>
         </div>
 
@@ -85,7 +84,7 @@ export function TokenInputForm({ defaultValue = "" }: TokenInputFormProps) {
             ) : validation && !validation.ok ? (
               <p className="font-semibold text-[var(--color-error)]">{validation.message}</p>
             ) : (
-              <p className="font-medium text-muted-foreground">Use a Solana mint address. Example analysis is available below.</p>
+              <p className="font-medium text-muted-foreground">Use a Solana mint address or open the demo token.</p>
             )}
           </div>
 

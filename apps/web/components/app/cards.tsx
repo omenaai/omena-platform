@@ -47,21 +47,21 @@ function getFriendlyReason(reason: string) {
 
 export function ModulePreviewGrid() {
   const items = [
-    { title: "Risk Intelligence", text: "Liquidity quality, market depth, token age, and caution flags.", icon: ShieldCheck },
-    { title: "Behavior Intelligence", text: "Holder versus trader behavior, deployer visibility, and flow bias.", icon: Wallet },
-    { title: "Signal Intelligence", text: "Momentum shifts, abnormal volume, and market condition severity.", icon: LineChart },
-    { title: "Context Intelligence", text: "Human-readable summary, verdict, and caution level.", icon: Sparkles },
+    { title: "Risk", text: "Liquidity quality, market depth, token age, and caution flags.", icon: ShieldCheck },
+    { title: "Behavior", text: "Holder versus trader behavior, deployer visibility, and flow bias.", icon: Wallet },
+    { title: "Signals", text: "Momentum shifts, abnormal volume, and market condition severity.", icon: LineChart },
+    { title: "Context", text: "Readable summary, verdict, and caution level.", icon: Sparkles },
   ];
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
       {items.map((item) => {
         const Icon = item.icon;
         return (
-          <Card key={item.title} className="rounded-[28px] border border-border/80 bg-card/92 shadow-sm">
-            <CardHeader className="gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                <Icon className="h-5 w-5" />
+          <Card key={item.title} className="rounded-[24px] border border-border/70 bg-card/88 shadow-sm">
+            <CardHeader className="gap-3 pb-2">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <Icon className="h-4 w-4" />
               </div>
               <CardTitle className="text-sm font-black tracking-[-0.03em]">{item.title}</CardTitle>
             </CardHeader>
@@ -83,14 +83,13 @@ export function RecentAnalysisPlaceholder() {
   ];
 
   return (
-    <Card className="rounded-[28px] border border-border/80 bg-card/95 shadow-sm">
-      <CardHeader>
-        <Badge variant="secondary" className="w-fit bg-primary/10 text-primary">Recent Analysis</Badge>
-        <CardTitle className="text-lg font-black tracking-[-0.03em]">Saved result placeholders</CardTitle>
+    <Card className="rounded-[24px] border border-border/70 bg-card/92 shadow-sm">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base font-black tracking-[-0.03em]">Recent analysis</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-2.5">
         {rows.map((row) => (
-          <div key={row.token} className="flex items-center justify-between gap-4 rounded-2xl border border-border/70 bg-background px-4 py-3">
+          <div key={row.token} className="flex items-center justify-between gap-4 rounded-[18px] border border-border/60 bg-background px-4 py-3">
             <div>
               <p className="text-sm font-black text-foreground">{row.token}</p>
               <p className="text-xs font-medium text-muted-foreground">{row.note}</p>
@@ -105,14 +104,16 @@ export function RecentAnalysisPlaceholder() {
 
 export function ExampleReportPreview({ result }: { result: TokenAnalysisResult }) {
   return (
-    <Card className="rounded-[28px] border border-border/80 bg-[#07101f] text-white shadow-[0_20px_70px_rgba(8,18,37,0.18)]">
-      <CardHeader>
-        <Badge className="w-fit bg-white/10 text-white">Example Output</Badge>
-        <CardTitle className="text-xl font-black tracking-[-0.04em] text-white">{result.token.name} report preview</CardTitle>
+    <Card className="rounded-[24px] border border-border/70 bg-card/94 shadow-sm">
+      <CardHeader className="gap-3 pb-2">
+        <div className="flex items-center justify-between gap-3">
+          <CardTitle className="text-lg font-black tracking-[-0.04em] text-foreground">{result.token.name} preview</CardTitle>
+          <Badge className="bg-primary/10 text-primary">Demo</Badge>
+        </div>
       </CardHeader>
-      <CardContent className="space-y-5 text-sm font-medium text-white/72">
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <PreviewMetric label="Risk Score" value={`${result.risk.score}/100`} />
+      <CardContent className="space-y-4 text-sm font-medium text-muted-foreground">
+        <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+          <PreviewMetric label="Risk" value={`${result.risk.score}/100`} />
           <PreviewMetric label="Behavior" value={result.behavior.type} />
           <PreviewMetric label="Severity" value={result.signals.severity} />
           <PreviewMetric label="Caution" value={result.context.cautionLevel} />
@@ -125,9 +126,9 @@ export function ExampleReportPreview({ result }: { result: TokenAnalysisResult }
 
 function PreviewMetric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/45">{label}</p>
-      <p className="mt-2 text-base font-black text-white">{value}</p>
+    <div className="rounded-[18px] border border-border/70 bg-background px-3 py-3">
+      <p className="text-[10px] font-black uppercase tracking-[0.18em] text-muted-foreground">{label}</p>
+      <p className="mt-1.5 text-sm font-black text-foreground">{value}</p>
     </div>
   );
 }
@@ -137,7 +138,7 @@ export function TokenOverviewCard({ result }: { result: TokenAnalysisResult }) {
     (result.token.priceChange24hPct ?? 0) > 0 ? "text-primary" : (result.token.priceChange24hPct ?? 0) < 0 ? "text-[var(--color-error)]" : "text-foreground";
 
   return (
-    <Card className="rounded-[28px] border border-border/80 bg-card/95 shadow-sm">
+    <Card className="rounded-[24px] border border-border/70 bg-card/92 shadow-sm">
       <CardHeader className="gap-4">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -167,7 +168,7 @@ export function TokenOverviewCard({ result }: { result: TokenAnalysisResult }) {
 
 function MetricCard({ label, value, valueClassName }: { label: string; value: string; valueClassName?: string }) {
   return (
-    <div className="rounded-2xl border border-border/70 bg-background px-4 py-4">
+    <div className="rounded-[18px] border border-border/60 bg-background px-4 py-4">
       <p className="text-[10px] font-black uppercase tracking-[0.18em] text-muted-foreground">{label}</p>
       <p className={cn("mt-2 text-base font-black text-foreground", valueClassName)}>{value}</p>
     </div>
@@ -192,11 +193,11 @@ export function ContextCard({ result }: { result: TokenAnalysisResult }) {
 
 function InsightCard({ title, icon: Icon, badgeLabel, badgeVariant, summary, items }: { title: string; icon: typeof ShieldCheck; badgeLabel: string; badgeVariant: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link"; summary: string; items: string[]; }) {
   return (
-    <Card className="rounded-[28px] border border-border/80 bg-card/95 shadow-sm">
+    <Card className="rounded-[24px] border border-border/70 bg-card/92 shadow-sm">
       <CardHeader className="gap-4">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Icon className="h-5 w-5" /></div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary"><Icon className="h-4 w-4" /></div>
             <CardTitle className="text-lg font-black tracking-[-0.03em]">{title}</CardTitle>
           </div>
           <Badge variant={badgeVariant}>{badgeLabel}</Badge>
@@ -206,7 +207,7 @@ function InsightCard({ title, icon: Icon, badgeLabel, badgeVariant, summary, ite
         <p className="text-sm font-medium leading-6 text-muted-foreground">{summary}</p>
         <div className="space-y-2">
           {items.map((item) => (
-            <div key={item} className="flex items-start gap-3 rounded-2xl border border-border/70 bg-background px-4 py-3 text-sm font-medium text-foreground/88">
+            <div key={item} className="flex items-start gap-3 rounded-[18px] border border-border/60 bg-background px-4 py-3 text-sm font-medium text-foreground/88">
               <span className="mt-1 h-2 w-2 rounded-full bg-primary" />
               <span>{item}</span>
             </div>
@@ -222,7 +223,7 @@ export function FinalVerdictCard({ result }: { result: TokenAnalysisResult }) {
   const reportText = [`${result.token.name} (${result.token.symbol})`, result.context.finalVerdict, result.context.aiSummary, ...result.context.reportSections].join("\n");
 
   return (
-    <Card className="rounded-[32px] border border-primary/15 bg-primary/[0.045] shadow-sm">
+    <Card className="rounded-[28px] border border-primary/15 bg-primary/[0.045] shadow-sm">
       <CardHeader className="gap-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -236,7 +237,7 @@ export function FinalVerdictCard({ result }: { result: TokenAnalysisResult }) {
         </div>
       </CardHeader>
       <CardContent className="grid gap-4 lg:grid-cols-[1.45fr_0.9fr]">
-        <div className="rounded-[28px] bg-card px-5 py-5 shadow-sm"><p className="text-sm font-medium leading-7 text-foreground/90">{result.context.aiSummary}</p></div>
+        <div className="rounded-[24px] bg-card px-5 py-5 shadow-sm"><p className="text-sm font-medium leading-7 text-foreground/90">{result.context.aiSummary}</p></div>
         <div className="space-y-3">
           <StatusLine icon={Database} label="Source" value={result.meta.dataSource} />
           <StatusLine icon={ServerCog} label="Market" value={result.meta.sources.market} />
@@ -252,9 +253,9 @@ export function FinalVerdictCard({ result }: { result: TokenAnalysisResult }) {
 
 function StatusLine({ icon: Icon, label, value }: { icon: typeof Database; label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between rounded-2xl border border-border/70 bg-card px-4 py-3">
+    <div className="flex items-center justify-between rounded-[18px] border border-border/60 bg-card px-4 py-3">
       <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Icon className="h-4 w-4" /></div>
+        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary"><Icon className="h-4 w-4" /></div>
         <span className="text-sm font-semibold text-muted-foreground">{label}</span>
       </div>
       <span className="text-sm font-black capitalize text-foreground">{value}</span>
@@ -264,7 +265,7 @@ function StatusLine({ icon: Icon, label, value }: { icon: typeof Database; label
 
 export function EmptyAnalyzeState() {
   return (
-    <Card className="rounded-[32px] border border-dashed border-border bg-card/90">
+    <Card className="rounded-[28px] border border-dashed border-border bg-card/90">
       <CardContent className="flex flex-col items-center justify-center gap-3 px-6 py-16 text-center">
         <Badge variant="secondary" className="bg-primary/10 text-primary">Ready</Badge>
         <h2 className="font-display text-3xl font-black tracking-[-0.05em] text-foreground">Start with a token address.</h2>
@@ -276,7 +277,7 @@ export function EmptyAnalyzeState() {
 
 export function ErrorAnalyzeState({ message }: { message: string }) {
   return (
-    <Card className="rounded-[32px] border border-[color:rgba(186,26,26,0.18)] bg-[color:rgba(255,218,214,0.55)]">
+    <Card className="rounded-[28px] border border-destructive/20 bg-destructive/10">
       <CardContent className="flex flex-col gap-3 px-6 py-10">
         <Badge variant="destructive" className="w-fit">Error</Badge>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em] text-foreground">Analysis could not be generated.</h2>
@@ -289,7 +290,7 @@ export function ErrorAnalyzeState({ message }: { message: string }) {
 export function InsufficientDataBanner({ reasons }: { reasons: string[] }) {
   if (reasons.length === 0) return null;
   return (
-    <div className="rounded-[28px] border border-border/80 bg-secondary/55 px-5 py-4 text-sm font-medium text-foreground/88">
+    <div className="rounded-[24px] border border-border/70 bg-secondary/55 px-5 py-4 text-sm font-medium text-foreground/88">
       <div className="mb-2 flex items-center gap-2 font-black text-foreground"><AlertCircle className="h-4 w-4 text-primary" />Partial data notice</div>
       <div className="space-y-1.5">{reasons.map((reason) => <p key={reason}>{getFriendlyReason(reason)}</p>)}</div>
     </div>
